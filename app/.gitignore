@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+.env
+
+# Docker
+.dockerignore
+# (Opcjonalnie, jeśli używasz lokalnych wolumenów dla bazy danych w folderze projektu)
+postgres_data/
+
+# IDE
+.vscode/
+.idea/
+
+# Systemowe
+.DS_Store
+Thumbs.db
