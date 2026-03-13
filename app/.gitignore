@@ -5,6 +5,9 @@ __pycache__/
 venv/
 .venv/
 
+# Pytest
+.pytest_cache/
+
 # Django
 db.sqlite3
 staticfiles/
@@ -23,3 +26,4 @@ postgres_data/
 # Systemowe
 .DS_Store
 Thumbs.db
+
