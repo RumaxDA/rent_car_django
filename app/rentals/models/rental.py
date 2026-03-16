@@ -30,7 +30,7 @@ class Rental(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[
         MinValueValidator(0)
     ])
-    status = models.CharField(choices=RENT_CHOICES)
+    status = models.CharField(choices=RENT_CHOICES, default='active')
     start_mileage = models.PositiveIntegerField()
     end_mileage = models.PositiveIntegerField(null = True, blank = True)
 
