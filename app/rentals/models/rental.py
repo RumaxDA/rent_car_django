@@ -1,9 +1,8 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.conf import settings
-import datetime
-from rentals.services import rental_service
+from rentals.services.rental_service import get_max_date, check_car_availability, check_start_date
 
 class Rental(models.Model):
     RENT_CHOICES = [
@@ -15,16 +14,8 @@ class Rental(models.Model):
     car = models.ForeignKey("fleet.car", on_delete = models.PROTECT, related_name='rentals')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.PROTECT, related_name = 'rentals')
 
-    start_date = models.DateField(
-        validators=[
-            MinValueValidator(datetime.date.today),
-        ]
-    )
-    end_date = models.DateField(
-        validators=[
-            MinValueValidator(datetime.date.today),
-            MaxValueValidator(rental_service.get_max_date())]
-    )
+    start_date = models.DateField()
+    end_date = models.DateField()
     actual_return_date = models.DateTimeField(null= True, blank = True)
 
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[
@@ -35,9 +26,29 @@ class Rental(models.Model):
     end_mileage = models.PositiveIntegerField(null = True, blank = True)
 
     def clean(self):
+        super().clean()
+
+        check_start_date(self.start_date)
+
+        if not self.start_date or not self.end_date:
+            return
+
         # End date vs Start date
-        if self.start_date and self.end_date and self.end_date < self.start_date:
-            raise ValidationError({"end_date": "End date must be after start date"})
+        if self.end_date < self.start_date:
+            raise ValidationError({'end_date':'End date must be after start date'})
+
+        max_allowed_date = get_max_date(self.start_date)
+
+        if self.end_date > max_allowed_date:
+            raise ValidationError({'end_date':"Hire is allowed for only 5 years, not more"})
+        
+        # Overlapping
+        check_car_availability(self.car, self.start_date, self.end_date, current_rental_id= self.id)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.user} - {self.car} ({self.start_date})"
