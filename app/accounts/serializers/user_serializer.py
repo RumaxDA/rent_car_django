@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from accounts.models.user import User
+from django.core.exceptions import ValidationError as DjangoValidationError
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
 
+    def validate(self,data):
+        try: 
+            instance = User(**data)
+            instance.full_clean()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
+        return data
     
