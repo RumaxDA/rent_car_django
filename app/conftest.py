@@ -22,7 +22,7 @@ def sample_user(db):
     )
 
 @pytest.fixture
-def sample_rental(db):
+def sample_rental(db, sample_car, sample_user):
     return Rental.objects.create(
         car = sample_car,
         user = sample_user,
