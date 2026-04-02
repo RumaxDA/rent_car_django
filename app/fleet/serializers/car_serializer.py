@@ -3,6 +3,7 @@ from fleet.models.car import Car
 from django.core.exceptions import ValidationError as DjangoValidationError
 
 class CarSerializer(serializers.ModelSerializer):
+    vin = serializers.CharField(write_only = True)
     class Meta:
         model = Car
         fields = "__all__"

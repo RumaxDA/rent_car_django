@@ -19,6 +19,8 @@ class Car(models.Model):
     engine_type = models.CharField(max_length= 50, 
                                    choices = ENGINE_CHOISES,
                                     default = 'petrol')
+    number_plate = models.CharField(max_length = 10, unique = True, verbose_name="Number Plate")
+    vin = models.CharField(max_length = 17, unique = True, verbose_name="VIN Number")
     
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year})"

@@ -22,7 +22,7 @@ class Rental(models.Model):
         MinValueValidator(0)
     ])
     status = models.CharField(choices=RENT_CHOICES, default='active')
-    start_mileage = models.PositiveIntegerField()
+    start_mileage = models.PositiveIntegerField(null = True, blank = True)
     end_mileage = models.PositiveIntegerField(null = True, blank = True)
 
     def clean(self):
