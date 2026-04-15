@@ -1,7 +1,7 @@
 import pytest
 from fleet.models.car import Car
 from django.core.exceptions import ValidationError
-from fleet.services.car_services import check_car_year
+from fleet.validators.validators import check_car_year
 
 @pytest.mark.django_db
 def test_car_year_production_under():
