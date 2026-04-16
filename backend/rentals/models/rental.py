@@ -49,6 +49,8 @@ class Rental(models.Model):
     def save(self, *args, **kwargs):
         if not self.price_per_day:
             self.price_per_day = self.car.price
+        if not self.start_mileage:
+            self.start_mileage = self.car.mileage
         self.full_clean()
         super().save(*args, **kwargs)
 

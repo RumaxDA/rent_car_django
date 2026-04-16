@@ -25,6 +25,7 @@ class Car(models.Model):
     vin = models.CharField(max_length = 17, unique = True, verbose_name="VIN Number")
     image = models.ImageField(upload_to='cars/', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], null=True, blank=True)
+    mileage = models.DecimalField(max_digits= 10, decimal_palces =2, validators=[MinValueValidator(0)])
     
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year})"
