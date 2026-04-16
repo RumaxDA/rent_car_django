@@ -24,6 +24,7 @@ class Rental(models.Model):
     status = models.CharField(choices=RENT_CHOICES, default='active')
     start_mileage = models.PositiveIntegerField(null = True, blank = True)
     end_mileage = models.PositiveIntegerField(null = True, blank = True)
+    price_per_day = models.DecimalField(max_digits=10, decimal_places = 2, validators=[MinValueValidator(0)], null = True, blank = True)
 
     def clean(self):
         super().clean()
@@ -46,6 +47,8 @@ class Rental(models.Model):
         check_car_availability(self.car, self.start_date, self.end_date, current_rental_id= self.id)
 
     def save(self, *args, **kwargs):
+        if not self.price_per_day:
+            self.price_per_day = self.car.price
         self.full_clean()
         super().save(*args, **kwargs)
 

@@ -9,7 +9,6 @@ class CarExternalApiService:
     def get_models(cls, make_name):
         params = {
             'make': make_name,
-            'verbose': 'yes' 
         }
         try:
             response = requests.get(cls.BASE_URL, params=params, timeout=10)
