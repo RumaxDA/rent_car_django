@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from rentals.services.rental_service import get_max_date, check_car_availability, check_start_date
+from rentals.services.rental_service import get_max_date, check_car_availability, check_start_date, calculate_total_price
 
 class Rental(models.Model):
     RENT_CHOICES = [
@@ -47,8 +47,13 @@ class Rental(models.Model):
         check_car_availability(self.car, self.start_date, self.end_date, current_rental_id= self.id)
 
     def save(self, *args, **kwargs):
+        
         if not self.price_per_day:
             self.price_per_day = self.car.price
+
+        if not self.total_price:
+            self.total_price = calculate_total_price(price_per_day= self.price_per_day, start_date= self.start_date, end_date=self.end_date)
+            
         if not self.start_mileage:
             self.start_mileage = self.car.mileage
         self.full_clean()
