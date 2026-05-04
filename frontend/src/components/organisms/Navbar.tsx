@@ -28,7 +28,22 @@ export const Navbar = () => {
             Contact
           </Link>
         </li>
-
+        <li>
+          <Link
+            to="/Fleet"
+            className="hover:text-blue-400 transition-colors font-medium"
+          >
+            Fleet
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/Rentals"
+            className="hover:text-blue-400 transition-colors font-medium"
+          >
+            Rentals
+          </Link>
+        </li>
         <li>
           <Link
             to="/Login"

@@ -1,10 +1,4 @@
-interface ButtonProps {
-  label: string;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  variant?: "primary" | "secondary" | "danger";
-  disabled?: boolean;
-}
+import type { ButtonProps } from "../../types/Button";
 
 export const Button = ({
   label,

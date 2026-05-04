@@ -2,11 +2,7 @@ import { Button } from "../atoms/Button";
 import { useState } from "react";
 import { authService } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
-import { type AuthMode } from "../../api/types";
-
-interface FormProps {
-  type: AuthMode;
-}
+import type { FormProps } from "../../types/Form";
 
 export default function AuthForm({ type }: FormProps) {
   let navigate = useNavigate();
@@ -60,7 +56,7 @@ export default function AuthForm({ type }: FormProps) {
             onChange={function (e) {
               setUsername(e.target.value);
             }}
-            className="input border-slate-200"
+            className="input border-2 border-slate-200 transition-all duration-150 ease-in-out hover:shadow"
             placeholder="Login"
             required
           />
@@ -70,7 +66,7 @@ export default function AuthForm({ type }: FormProps) {
               onChange={function (e) {
                 setEmail(e.target.value);
               }}
-              className="input border-slate-200"
+              className="input border-2 border-slate-200"
               placeholder="Email"
               required
             />
@@ -81,7 +77,7 @@ export default function AuthForm({ type }: FormProps) {
             onChange={function (e) {
               setPassword(e.target.value);
             }}
-            className="input border-slate-200"
+            className="input border-2 border-slate-200 hover:shadow"
             placeholder="Password"
           />
           <Button
