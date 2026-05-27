@@ -45,7 +45,7 @@ cd rent_car_django
 Copy the example environment file and adjust the values if necessary (the defaults are fine for local development):
 
 ```bash
-    cp .env.example .env
+cp .env.example .env
 ```
 
 **Step 3. Build and Run the Containers**
