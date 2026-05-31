@@ -17,7 +17,7 @@ jobs:
     - name: Konfiguracja środowiska Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.13' # Tu wpisujemy Twoją wersję Pythona
+        python-version: '3.13'
 
     - name: Instalacja Flake8
       run: |
@@ -25,6 +25,4 @@ jobs:
         pip install flake8
 
     - name: Analiza kodu (Flake8)
-      # Odpalamy linter w głównym katalogu (.). 
-      # Ignorujemy błędy o długości linii > 119 znaków (standard dla Django)
-      run: flake8 backend/ --count --max-line-length=119 --show-source --statistics
+      run: flake8 . --count --max-line-length=119 --show-source --statistics
