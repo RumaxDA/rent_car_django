@@ -70,9 +70,9 @@ docker compose exec backend python manage.py createsuperuser
 
 ### Accessing the API
 
-**API Endpoints:** http://localhost:8000/
-**Swagger UI Documentation:** http://localhost:8000/api/docs/
-**Database Access:** port 5433
+**API Endpoints:** http://localhost:8000/  
+**Swagger UI Documentation:** http://localhost:8000/api/docs/  
+**Database Access:** port 5433  
 
 ### Running Tests
 
