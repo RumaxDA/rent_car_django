@@ -63,5 +63,10 @@ invoices/*.db
 reports/
 *.pdf
 
+#---- AWS ----
+car-rental-key.pem
+*.pem
+
 # --- Inne ---
 LICENSE
+
