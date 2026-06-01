@@ -1,6 +1,7 @@
 # Car Rental API
 
 [![Python Code Linter](https://github.com/RumaxDA/rent_car_django/actions/workflows/linter.yml/badge.svg)](https://github.com/RumaxDA/rent_car_django/actions)
+[![Django Tests](https://github.com/RumaxDA/rent_car_django/actions/workflows/tests.yml/badge.svg)](https://github.com/RumaxDA/rent_car_django/actions)
 
 A robust, backend-only RESTful API built for managing a car rental service. Designed with a clear separation of business logic (Service Layer pattern) and heavy emphasis on data validation, security, and role-based access control.
 
@@ -9,7 +10,7 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 - **Framework:** Django & Django REST Framework (DRF)
 - **Authentication:** JSON Web Tokens (JWT)
 - **Database:** PostgreSQL 17
-- **CI:** GitHub Actions (Automated Code Linting via Flake8 & Black)
+- **CI:** GitHub Actions (Automated Linting via Flake8 & Black, Automated Testing via Pytest)
 - **Server & Static Files:** Gunicorn, WhiteNoise
 - **Testing:** Pytest (with fixtures)
 - **Documentation:** OpenAPI / Swagger UI
@@ -25,7 +26,7 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 5. **Comprehensive Testing:** Automated test suite powered by `pytest` and fixtures.
 6. **Core CRUD Operations:** Complete management of Users, Cars, and Rentals.
 7. **Query Optimization:** Built-in filtering and pagination for large datasets.
-8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards on every pull request and push to the main branch.
+8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards and executing automated test suites (Pytest) on every pull request and push to the main branch.
 
 ## How to run
 
