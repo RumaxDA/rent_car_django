@@ -5,4 +5,9 @@ exclude =
     .venv/,
     .git/,
     __pycache__,
-    */migrations/*
+    */migrations/*,
+
+
+per-file-ignores =
+    # Ignoruj TYLKO błąd F401 (nieużywany import) i F403 (import *) w plikach __init__.py
+    __init__.py: F401, F403
