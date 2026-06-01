@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Pobranie kodu repozytorium
+    - name: Downloading the repository code
       uses: actions/checkout@v4
 
-    - name: Konfiguracja środowiska Python
+    - name: Python environment configuration
       uses: actions/setup-python@v5
       with:
         python-version: '3.13'
 
-    - name: Instalacja Flake8
+    - name: Flake8 Installation
       run: |
         python -m pip install --upgrade pip
         pip install flake8
 
-    - name: Analiza kodu (Flake8)
+    - name: Code analysis (Flake8)
       run: flake8 . --count --max-line-length=119 --show-source --statistics
