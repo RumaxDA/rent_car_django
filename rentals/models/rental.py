@@ -35,7 +35,7 @@ class Rental(models.Model):
         blank=True,
         validators=[MinValueValidator(0)],
     )
-    status = models.CharField(choices=RENT_CHOICES, default="active")
+    status = models.CharField(choices=RENT_CHOICES, default="reserved")
     start_mileage = models.PositiveIntegerField(null=True, blank=True)
     end_mileage = models.PositiveIntegerField(null=True, blank=True)
     price_per_day = models.DecimalField(
@@ -75,15 +75,20 @@ class Rental(models.Model):
         if not self.price_per_day:
             self.price_per_day = self.car.price
 
+        if not self.start_mileage:
+            self.start_mileage = self.car.mileage
+
+        effective_end_date = (
+            self.actual_return_date.date() if self.actual_return_date else self.end_date
+        )
+
         if not self.total_price:
             self.total_price = calculate_total_price(
                 price_per_day=self.price_per_day,
                 start_date=self.start_date,
-                end_date=self.end_date,
+                end_date=effective_end_date,
             )
 
-        if not self.start_mileage:
-            self.start_mileage = self.car.mileage
         self.full_clean()
         super().save(*args, **kwargs)
 
