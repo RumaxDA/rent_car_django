@@ -1,5 +1,7 @@
 import datetime
 from django.core.exceptions import ValidationError
+from django.db import transaction
+import django.utils.timezone
 
 
 def get_max_date(start_date):
@@ -17,11 +19,15 @@ def check_start_date(start_date):
 def check_car_availability(car, start_date, end_date, current_rental_id=None):
     from rentals.models.rental import Rental
 
-    overlapping_rentals = Rental.objects.filter(
-        car=car,
-        start_date__lt=end_date,
-        end_date__gt=start_date,
-    ).exclude(status="cancelled")
+    overlapping_rentals = (
+        Rental.objects.filter(
+            car=car,
+            start_date__lt=end_date,
+            end_date__gt=start_date,
+        )
+        .exclude(status="cancelled")
+        .exclude(status="completed")
+    )
 
     if current_rental_id:
         overlapping_rentals = overlapping_rentals.exclude(id=current_rental_id)
@@ -37,15 +43,77 @@ def calculate_total_price(price_per_day, start_date, end_date):
     return total_price
 
 
-def change_status_and_give_mileage():
-    # zapisujemy status aktualny
-    # Pętla for raz dziennie do end_date + 1
-    # jeśli data dzisiejsza jest < od start_date to:
-    # ustawiany status na "Reserved"
-    # jeśli data dzisiejsza jest == z start_date to:
-    # ustawiamy status na "Active"
-    # pobieramy mileage z modelu Car i ustawiamy w start_mileage
-    # jeśli data dzisiejsza jest > od end_date to:
-    # ustawiamy status na "Completed"
-    # ustawiamy mileage w modelu Car == end_mileage
-    pass
+def activate_rental(rental_id):
+    from rentals.models.rental import Rental
+
+    with transaction.atomic():
+        rental = Rental.objects.select_for_update().get(id=rental_id)
+
+        if rental.status != "reserved":
+            raise ValidationError(
+                f"Cannot activate reservation with status {rental.status}."
+                " Only 'reserved' status is allowed!"
+            )
+
+        if rental.start_date > datetime.date.today():
+            raise ValidationError(
+                "Too early! The client has a reservation for a later date."
+            )
+
+        rental.status = "active"
+        rental.car.car_status = "rented"
+        rental.start_mileage = rental.car.mileage
+        rental.car.save()
+        rental.save()
+
+
+def complete_rental(rental_id, end_mileage):
+    from rentals.models.rental import Rental
+
+    with transaction.atomic():
+        rental = Rental.objects.select_for_update().get(id=rental_id)
+
+        if rental.status != "active":
+            raise ValidationError(
+                f"Cannot complete reservation with status {rental.status}."
+                " Only 'active' status is allowed!"
+            )
+
+        if end_mileage < rental.start_mileage:
+            raise ValidationError(
+                "The mileage cannot be lower than at the start of the rental"
+            )
+
+        rental.status = "completed"
+        rental.car.car_status = "available"
+
+        rental.end_mileage = end_mileage
+        rental.car.mileage = rental.end_mileage
+
+        rental.actual_return_date = django.utils.timezone.now()  # RRRR-MM-DD HH-MM
+        convert_return_date = rental.actual_return_date.date()  # Only Date
+
+        actual_total_price = calculate_total_price(
+            rental.price_per_day, rental.start_date, convert_return_date
+        )
+        rental.total_price = actual_total_price
+
+        rental.car.save()
+        rental.save()
+
+
+def cancel_rental(rental_id):
+    from rentals.models.rental import Rental
+
+    with transaction.atomic():
+        rental = Rental.objects.select_for_update().get(id=rental_id)
+
+        if rental.status != "reserved":
+            raise ValidationError(
+                f"Cannot cancel reservation with status {rental.status}. Only 'reserved' status is allowed!"
+            )
+
+        rental.status = "cancelled"
+        rental.actual_return_date = None
+
+        rental.save()
