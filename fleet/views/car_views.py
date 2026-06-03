@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny, IsAdminUser
 from fleet.models.car import Car
-from fleet.serializers.car_serializer import CarSerializer
+from fleet.serializers.car_serializer import CarSerializer, CreateCarSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, filters
@@ -13,7 +13,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class CarViewSet(ModelViewSet):
     queryset = Car.objects.all().order_by("id")
-    serializer_class = CarSerializer
     pagination_class = CustomPagination
 
     filter_backends = [
@@ -23,6 +22,11 @@ class CarViewSet(ModelViewSet):
     ]
 
     filterset_fields = ["brand", "model"]
+
+    def get_serializer_class(self):
+        if self.action in ["create", "bulk_create_cars"]:
+            return CreateCarSerializer
+        return CarSerializer
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
