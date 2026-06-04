@@ -58,7 +58,8 @@ celerybeat-schedule*
 
 # Media / Generated files
 media/
-invoices/
+invoices/*.pdf
+invoices/*.db
 reports/
 *.pdf
 
