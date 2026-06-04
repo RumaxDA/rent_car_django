@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "fleet",
     "rentals",
+    "invoices",
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
@@ -181,3 +183,15 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+CELERY_BROKER_URL = os.environ["CELERY_URL"]
+CELERY_RESULT_BACKEND = os.environ["CELERY_URL"]
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+
+CELERY_BEAT_SCHEDULE = {
+    'cancel-dead-reservations-every-15-minutes': {
+        'task': 'rentals.tasks.cancel_overdue_reservations',
+        'schedule': crontab(minute='*/15')
+    },
+}
