@@ -2,13 +2,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import (
     IsAuthenticated,
     AllowAny,
-    IsAdminUser,
     BasePermission,
 )
 from accounts.models.user import User
 from accounts.serializers.user_serializer import UserSerializer, RegisterUserSerializer
-from rest_framework.decorators import action
-from rest_framework.response import Response
 
 
 class IsOwner(BasePermission):
@@ -22,7 +19,7 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:
-            return User.objects.all().order_by('id')
+            return User.objects.all().order_by("id")
         return User.objects.filter(id=user.id)
 
     def get_serializer_class(self):

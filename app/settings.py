@@ -42,11 +42,11 @@ INSTALLED_APPS = [
     "accounts",
     "fleet",
     "rentals",
-    "invoices",
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
     "django_filters",
+    "invoices",
 ]
 
 MIDDLEWARE = [
@@ -190,8 +190,8 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 
 CELERY_BEAT_SCHEDULE = {
-    'cancel-dead-reservations-every-15-minutes': {
-        'task': 'rentals.tasks.cancel_overdue_reservations',
-        'schedule': crontab(minute='*/15')
+    "cancel-dead-reservations-every-15-minutes": {
+        "task": "rentals.tasks.cancel_overdue_reservations",
+        "schedule": crontab(minute="*/15"),
     },
 }

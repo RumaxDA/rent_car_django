@@ -142,15 +142,15 @@ class RentalViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-            request= None,
-            responses={202:dict},
-            description='Instructs asynchronous generation of a PDF report for the rental.'
+        request=None,
+        responses={202: dict},
+        description="Instructs asynchronous generation of a PDF report for the rental.",
     )
     @action(
         detail=True,
-        methods=['post'],
+        methods=["post"],
         permission_classes=[IsAuthenticated],
-        url_path = 'generate-invoice'
+        url_path="generate-invoice",
     )
     def generate_invoice(self, request, pk=None):
         rental = self.get_object()
@@ -158,31 +158,29 @@ class RentalViewSet(ModelViewSet):
         generate_invoice_task.delay(rental.id)
 
         return Response(
-            {'message': "Report generation has been requested. The file will appear in the system soon."},
-            status = status.HTTP_202_ACCEPTED
+            {
+                "message": "Report generation has been requested. The file will appear in the system soon."
+            },
+            status=status.HTTP_202_ACCEPTED,
         )
-    
 
     @action(
-        detail = True,
-        methods=['get'],
-        url_path='download-invoice',
+        detail=True,
+        methods=["get"],
+        url_path="download-invoice",
     )
     def download_invoice(self, request, pk=None):
         rental = self.get_object()
-        file_name = f'invoice_{rental.id}.pdf'
-        file_path = os.path.join(settings.BASE_DIR, 'media', 'reports', file_name)
+        file_name = f"invoice_{rental.id}.pdf"
+        file_path = os.path.join(settings.BASE_DIR, "media", "reports", file_name)
 
         if os.path.exists(file_path):
-            file = open(file_name, 'rb')
+            file = open(file_name, "rb")
             return FileResponse(
                 file,
                 as_attachment=True,
                 filename=file_name,
-                content_type='application/pdf'
+                content_type="application/pdf",
             )
         else:
-            return Response(
-                {'status': 'PROCESSING', 'message': 'Invoice generate...'}
-            )
-    
+            return Response({"status": "PROCESSING", "message": "Invoice generate..."})
