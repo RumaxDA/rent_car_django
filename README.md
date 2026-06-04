@@ -15,7 +15,7 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 - **Testing:** Pytest (with fixtures)
 - **Documentation:** OpenAPI / Swagger UI
 - **Infrastructure:** Docker & Docker Compose
-- _(Upcoming)_: Redis & Celery (for async tasks: email notifications and PDF report generation)
+- **Asynchronous Tasks:** Redis & Celery (handles background PDF report generation and automatic check of missed reservations)
 
 ## Key Features
 
@@ -27,6 +27,10 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 6. **Core CRUD Operations:** Complete management of Users, Cars, and Rentals.
 7. **Query Optimization:** Built-in filtering and pagination for large datasets.
 8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards and executing automated test suites (Pytest) on every pull request and push to the main branch.
+
+## Architecture
+
+The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
 
 ## How to run
 
@@ -66,8 +70,8 @@ Open a new terminal and run migrations inside the backend container:
 docker compose exec backend python manage.py makemigrations
 ```
 
-**Step 5. Apply Migrations**
-Create a Superuser (Admin):
+**Step 5. Create Superuser**
+Create a superuser account for the admin panel:
 
 ```bash
 docker compose exec backend python manage.py createsuperuser
