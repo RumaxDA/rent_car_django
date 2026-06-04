@@ -18,6 +18,10 @@ from rentals.services.rental_service import (
 )
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
+from rentals.tasks import generate_invoice_task
+import os
+from django.http import FileResponse
+from django.conf import settings
 
 
 class RentalViewSet(ModelViewSet):
@@ -27,11 +31,9 @@ class RentalViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in [
-            "list",
             "update",
             "partial_update",
             "destroy",
-            "retrieve",
             "activate_reservation",
             "finalize_rental",
         ]:
@@ -55,12 +57,6 @@ class RentalViewSet(ModelViewSet):
         if user.is_staff:
             return Rental.objects.all().order_by("id")
         return Rental.objects.filter(user=user).order_by("id")
-
-    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
-    def my(self, request):
-        rentals = self.get_queryset()
-        serializer = RentalSerializer(rentals, many=True)
-        return Response(serializer.data)
 
     @extend_schema(
         request=None,
@@ -144,3 +140,49 @@ class RentalViewSet(ModelViewSet):
         rental.refresh_from_db()
         serializer = self.get_serializer(rental)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+            request= None,
+            responses={202:dict},
+            description='Instructs asynchronous generation of a PDF report for the rental.'
+    )
+    @action(
+        detail=True,
+        methods=['post'],
+        permission_classes=[IsAuthenticated],
+        url_path = 'generate-invoice'
+    )
+    def generate_invoice(self, request, pk=None):
+        rental = self.get_object()
+
+        generate_invoice_task.delay(rental.id)
+
+        return Response(
+            {'message': "Report generation has been requested. The file will appear in the system soon."},
+            status = status.HTTP_202_ACCEPTED
+        )
+    
+
+    @action(
+        detail = True,
+        methods=['get'],
+        url_path='download-invoice',
+    )
+    def download_invoice(self, request, pk=None):
+        rental = self.get_object()
+        file_name = f'invoice_{rental.id}.pdf'
+        file_path = os.path.join(settings.BASE_DIR, 'media', 'reports', file_name)
+
+        if os.path.exists(file_path):
+            file = open(file_name, 'rb')
+            return FileResponse(
+                file,
+                as_attachment=True,
+                filename=file_name,
+                content_type='application/pdf'
+            )
+        else:
+            return Response(
+                {'status': 'PROCESSING', 'message': 'Invoice generate...'}
+            )
+    

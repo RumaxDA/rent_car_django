@@ -19,6 +19,12 @@ class IsOwner(BasePermission):
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return User.objects.all().order_by('id')
+        return User.objects.filter(id=user.id)
+
     def get_serializer_class(self):
         if self.action == "create":
             return RegisterUserSerializer
@@ -27,13 +33,4 @@ class UserViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             return [AllowAny()]
-        if self.action in ["list", "retrieve"]:
-            return [IsAdminUser()]
-        if self.action in ["update", "partial_update", "destroy"]:
-            return [IsOwner()]
         return [IsAuthenticated()]
-
-    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
-    def me(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
