@@ -29,6 +29,7 @@ from rest_framework_simplejwt.views import (
 from fleet.urls import router as fleet_router
 from accounts.urls import router as users_router
 from rentals.urls import router as rentals_router
+from invoices.urls import router as invoices_router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -44,4 +45,5 @@ urlpatterns = [
     path("api/", include(fleet_router.urls)),
     path("api/", include(users_router.urls)),
     path("api/", include(rentals_router.urls)),
+    path("api/", include(invoices_router.urls)),
 ]
