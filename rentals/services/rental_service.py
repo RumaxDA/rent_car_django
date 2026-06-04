@@ -2,6 +2,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.db import transaction
 import django.utils.timezone
+from django.utils import timezone
 
 
 def get_max_date(start_date):
@@ -69,6 +70,7 @@ def activate_rental(rental_id):
 
 def complete_rental(rental_id, end_mileage):
     from rentals.models.rental import Rental
+    from invoices.models.invoice import Invoice
 
     with transaction.atomic():
         rental = Rental.objects.select_for_update().get(id=rental_id)
@@ -100,6 +102,19 @@ def complete_rental(rental_id, end_mileage):
 
         rental.car.save()
         rental.save()
+
+        current_vat_rate = 0.23
+        net = round(actual_total_price/(1+current_vat_rate),2)
+        vat = round(actual_total_price-net,2)
+
+        Invoice.objects.create(
+            rental = rental,
+            invoice_number = f"FV/{timezone.now().strftime('%Y/%m')}/{rental.id}",
+            net_amount=net,
+            gross_amount = actual_total_price,
+            vat_rate = current_vat_rate,
+            vat_amount = vat,
+        )
 
 
 def cancel_rental(rental_id):
