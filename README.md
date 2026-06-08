@@ -22,6 +22,7 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 - **Documentation:** OpenAPI / Swagger UI
 - **Infrastructure:** Docker & Docker Compose
 - **Deployment:** Nginx (Reverse Proxy), Gunicorn, SSL (Let's Encrypt)
+- **Cloud Infrastructure:** AWS (EC2, Security Groups)
 - **Asynchronous Tasks:** Redis & Celery (handles background PDF report generation and automatic check of missed reservations)
 
 ## Key Features
@@ -34,7 +35,7 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 6. **Core CRUD Operations:** Complete management of Users, Cars, and Rentals.
 7. **Query Optimization:** Built-in filtering and pagination for large datasets.
 8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards and executing automated test suites (Pytest) on every pull request and push to the main branch.
-9. **Cloud-Ready Deployment:** Fully containerized setup with production-grade SSL/TLS encryption.
+9. **Cloud-Ready Deployment:** Containerized production environment hosted on AWS, utilizing Nginx as a reverse proxy, Gunicorn for WSGI handling, and Let's Encrypt for SSL/TLS security.
 
 ## Architecture
 
