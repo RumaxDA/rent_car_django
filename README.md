@@ -41,6 +41,10 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 
 The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
 
+## Architecture
+
+The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
+
 ## How to run
 
 The project is fully containerized. You don't need to install Python or PostgreSQL on your local machine.
