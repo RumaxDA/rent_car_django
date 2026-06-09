@@ -3,6 +3,7 @@ name: API Status Badge Updater
 on:
     schedule:
         - cron: "*/15 * * * *"
+
     workflow_dispatch:
 
 jobs:
@@ -12,12 +13,13 @@ jobs:
             - name: Check API status and determine badge state
               id: check
               run: |
+
                   HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" --max-time 5 https://rent-car.ddns.net/api/docs/)
 
                   if [ $? -ne 0 ]; then
                         HTTP_STATUS=0
                   fi
-                    
+
                   HOUR_UTC=$(date -u +"%H")
 
                   if [ "$HTTP_STATUS" -eq 200 ]; then
