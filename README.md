@@ -2,7 +2,7 @@
 
 [![Python Code Linter](https://github.com/RumaxDA/rent_car_django/actions/workflows/linter.yml/badge.svg)](https://github.com/RumaxDA/rent_car_django/actions)
 [![Django Tests](https://github.com/RumaxDA/rent_car_django/actions/workflows/tests.yml/badge.svg)](https://github.com/RumaxDA/rent_car_django/actions)
-
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/RumaxDA/cd1fd28cca97f1de173db7be79d0edde/raw/status.json" alt="API Status">
 A robust, backend-only RESTful API built for managing a car rental service. Designed with a clear separation of business logic (Service Layer pattern) and heavy emphasis on data validation, security, and role-based access control.
 
 ## 🚀 Live Demo
