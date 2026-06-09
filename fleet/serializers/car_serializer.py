@@ -17,6 +17,23 @@ class CarSerializer(serializers.ModelSerializer):
             "hp",
             "engine_type",
             "number_plate",
+            "mileage",
+            "car_status",
+        ]
+
+
+class CreateCarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Car
+        fields = [
+            "id",
+            "vin",
+            "brand",
+            "model",
+            "year",
+            "hp",
+            "engine_type",
+            "number_plate",
         ]
 
     def validate(self, data):

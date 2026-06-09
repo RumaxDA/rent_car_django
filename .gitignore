@@ -46,5 +46,27 @@ secrets.json
 **/postgres_data/
 **/pgadmin_data/
 
+# Celery
+celerybeat-schedule
+celerybeat-schedule.db
+celerybeat-schedule.bak
+celerybeat-schedule.dir
+celerybeat-schedule.dat
+celerybeat.pid
+*.pid
+celerybeat-schedule*
+
+# Media / Generated files
+media/
+invoices/*.pdf
+invoices/*.db
+reports/
+*.pdf
+
+#---- AWS ----
+car-rental-key.pem
+*.pem
+
 # --- Inne ---
 LICENSE
+

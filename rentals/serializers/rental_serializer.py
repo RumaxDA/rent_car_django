@@ -16,9 +16,12 @@ class RentalSerializer(serializers.ModelSerializer):
             "user",
             "start_date",
             "end_date",
+            "actual_return_date",
             "start_mileage",
+            "end_mileage",
             "price_per_day",
             "total_price",
+            "status",
         ]
 
 
@@ -38,3 +41,22 @@ class CreateRentalSerializer(serializers.ModelSerializer):
         except DjangoValidationError as e:
             raise serializers.ValidationError(e.message_dict)
         return data
+
+
+class UpdateRentalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rental
+        fields = [
+            "start_date",
+            "end_date",
+            "start_mileage",
+            "price_per_day",
+            "total_price",
+            "status",
+        ]
+
+
+class FinalizeRentalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rental
+        fields = ["end_mileage"]
