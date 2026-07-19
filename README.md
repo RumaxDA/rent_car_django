@@ -8,7 +8,11 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 ## 🚀 Live Demo
 
 You can test the API live here (available daily from 06:00 to 20:00 CEST / UTC+2):
+<<<<<<< HEAD
 **[https://rent-cars.ddns.net/api/docs/](https://rent-cars.ddns.net/api/docs/)**
+=======
+**[https://rent-car.ddns.net/api/docs/](https://rent-cars.ddns.net/api/docs/)**
+>>>>>>> c8ae8ba (update readme)
 _Coming Soon: The database will be reset periodically to maintain a clean environment for testing._
 
 ## Tech Stack
