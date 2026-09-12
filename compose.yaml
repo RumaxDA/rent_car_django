@@ -23,7 +23,7 @@ services:
       - .env
     volumes:
       - .:/app
-      - .:/app/media
+      - ./media:/app/media
 
   redis:
     image: redis:7-alpine

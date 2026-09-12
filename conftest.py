@@ -2,8 +2,8 @@ import pytest
 from fleet.models.car import Car
 from rentals.models.rental import Rental
 from accounts.models.user import User
-import datetime
 from datetime import timedelta
+from django.utils import timezone
 
 
 @pytest.fixture
@@ -32,8 +32,8 @@ def sample_rental(db, sample_car, sample_user):
     return Rental.objects.create(
         car=sample_car,
         user=sample_user,
-        start_date=datetime.date.today(),
-        end_date=datetime.date.today() + timedelta(days=30),
+        start_date=timezone.now() + timedelta(minutes=30),
+        end_date=timezone.now() + timedelta(days=30),
         start_mileage=10000,
     )
 

@@ -7,7 +7,6 @@ import logging
 
 from rentals.models.rental import Rental
 from rentals.services.pdf_service import InvoicePDF
-from rentals.services.rental_service import cancel_rental
 
 logger = logging.getLogger(__name__)
 
@@ -20,19 +19,11 @@ def cancel_overdue_reservations():
         status="reserved", start_date__lte=threshold_time
     )
 
-    cancelled_count = 0
+    updated_rentals = overdue_rentals.update(
+        status="cancelled", actual_return_date=None
+    )
 
-    for rental in overdue_rentals:
-        try:
-            cancel_rental(rental.id)
-            cancelled_count += 1
-            logger.info(f"Automatically canceled overdue reservation ID: {rental.id}")
-        except Exception:
-            logger.error(
-                f"Error during automatic canceling reservation ID: {rental.id}"
-            )
-
-    return f"Completed. {cancelled_count} was cancelled."
+    return f"Completed. {updated_rentals} was cancelled."
 
 
 @shared_task
