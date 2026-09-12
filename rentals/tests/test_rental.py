@@ -217,3 +217,30 @@ def test_user_cannot_create_multiple_active_or_reserved_rentals(
 
     assert response.status_code == 400
     assert "non_field_errors" in response.data
+
+
+@pytest.mark.django_db
+def test_complete_rental_fails_on_lower_mileage(sample_rental):
+    sample_rental.status = "active"
+    sample_rental.save()
+
+    with pytest.raises(ValidationError) as excinfo:
+        complete_rental(sample_rental.id, end_mileage=100)
+
+    assert "The mileage cannot be lower than at the start of the rental" in str(
+        excinfo.value
+    )
+
+
+@pytest.mark.django_db
+def test_calculate_total_price_minimum_one_day(sample_rental):
+    from decimal import Decimal
+
+    sample_rental.status = "active"
+    sample_rental.start_date = timezone.now() - timedelta(hours=1)
+    sample_rental.save()
+
+    complete_rental(sample_rental.id, sample_rental.start_mileage + 10)
+    sample_rental.refresh_from_db()
+
+    assert sample_rental.total_price == Decimal("150")

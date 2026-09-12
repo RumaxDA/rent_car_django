@@ -5,7 +5,6 @@ import django.utils.timezone
 from django.utils import timezone
 from datetime import timedelta
 import math
-from decimal import Decimal
 
 
 def get_max_date(start_date):
@@ -73,7 +72,7 @@ def activate_rental(rental_id):
 
 def complete_rental(rental_id, end_mileage):
     from rentals.models.rental import Rental
-    from invoices.models.invoice import Invoice
+    from invoices.services.invoice_service import create_invoice_record
 
     with transaction.atomic():
         rental = Rental.objects.select_for_update().get(id=rental_id)
@@ -89,6 +88,7 @@ def complete_rental(rental_id, end_mileage):
                 "The mileage cannot be lower than at the start of the rental"
             )
 
+        # Update rental and car state
         rental.status = "completed"
         rental.car.car_status = "available"
 
@@ -97,12 +97,13 @@ def complete_rental(rental_id, end_mileage):
 
         rental.actual_return_date = django.utils.timezone.now()  # RRRR-MM-DD HH-MM
 
+        # Calculate base price for the duration
         actual_total_price = calculate_total_price(
             rental.price_per_day, rental.start_date, rental.actual_return_date
         )
         rental.total_price = actual_total_price
 
-        # Penalty 50zł for an hour.
+        # Penalty (50 PLN per hour) if returned past schedule.
         if rental.actual_return_date > rental.end_date:
             after_time = rental.actual_return_date - rental.end_date
             hours_late = math.ceil(after_time.total_seconds() / 3600)
@@ -114,19 +115,7 @@ def complete_rental(rental_id, end_mileage):
         rental.car.save()
         rental.save()
 
-        # Data for fv
-        current_vat_rate = Decimal("0.23")
-        net = round(actual_total_price / (Decimal("1") + current_vat_rate), 2)
-        vat = round(actual_total_price - net, 2)
-
-        Invoice.objects.create(
-            rental=rental,
-            invoice_number=f"FV/{timezone.now().strftime('%Y/%m')}/{rental.id}",
-            net_amount=net,
-            gross_amount=actual_total_price,
-            vat_rate=current_vat_rate,
-            vat_amount=vat,
-        )
+        create_invoice_record(rental)
 
 
 def cancel_rental(rental_id):

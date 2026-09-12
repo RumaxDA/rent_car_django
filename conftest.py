@@ -8,6 +8,11 @@ from rest_framework.test import APIClient
 
 
 @pytest.fixture
+def api_client():
+    return APIClient()
+
+
+@pytest.fixture
 def sample_car(db):
     return Car.objects.create(
         brand="Tesla",
@@ -40,8 +45,18 @@ def sample_rental(db, sample_car, sample_user):
 
 
 @pytest.fixture
-def api_client():
-    return APIClient()
+def sample_invoice(db, sample_rental):
+    """
+    Fixtura tworząca przykładową opłaconą i zakończoną rezerwację wraz z powiązaną fakturą.
+    """
+    from decimal import Decimal
+    from invoices.services.invoice_service import create_invoice_record
+
+    sample_rental.status = "completed"
+    sample_rental.total_price = Decimal("200.00")
+    sample_rental.save()
+
+    return create_invoice_record(sample_rental)
 
 
 # BULK / zewnętrzne API
