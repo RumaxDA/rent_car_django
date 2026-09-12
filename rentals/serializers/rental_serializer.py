@@ -42,6 +42,12 @@ class CreateRentalSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(e.message_dict)
         return data
 
+    def create(self, validated_data):
+        user = self.context["request"].user
+        rental = Rental(user=user, **validated_data, status="reserved")
+        rental.save()
+        return rental
+
 
 class UpdateRentalSerializer(serializers.ModelSerializer):
     class Meta:

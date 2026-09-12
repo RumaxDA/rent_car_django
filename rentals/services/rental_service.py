@@ -102,7 +102,7 @@ def complete_rental(rental_id, end_mileage):
         )
         rental.total_price = actual_total_price
 
-        # Kara 50zł od godziny.
+        # Penalty 50zł for an hour.
         if rental.actual_return_date > rental.end_date:
             after_time = rental.actual_return_date - rental.end_date
             hours_late = math.ceil(after_time.total_seconds() / 3600)
@@ -114,7 +114,7 @@ def complete_rental(rental_id, end_mileage):
         rental.car.save()
         rental.save()
 
-        # Dane do fv
+        # Data for fv
         current_vat_rate = Decimal("0.23")
         net = round(actual_total_price / (Decimal("1") + current_vat_rate), 2)
         vat = round(actual_total_price - net, 2)

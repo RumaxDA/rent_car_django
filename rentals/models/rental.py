@@ -49,6 +49,20 @@ class Rental(models.Model):
     def clean(self):
         super().clean()
 
+        if not self.pk:
+            active_rental_exists = Rental.objects.filter(
+                user=self.user, status__in=["reserved", "active"]
+            ).exists()
+
+            if active_rental_exists:
+                raise ValidationError(
+                    {
+                        "non_field_errors": [
+                            "User already has an active or reserved rental."
+                        ]
+                    }
+                )
+
         if self._state.adding or self.status == "reserved":
             check_start_date(self.start_date)
 

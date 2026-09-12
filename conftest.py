@@ -4,6 +4,7 @@ from rentals.models.rental import Rental
 from accounts.models.user import User
 from datetime import timedelta
 from django.utils import timezone
+from rest_framework.test import APIClient
 
 
 @pytest.fixture
@@ -36,6 +37,11 @@ def sample_rental(db, sample_car, sample_user):
         end_date=timezone.now() + timedelta(days=30),
         start_mileage=10000,
     )
+
+
+@pytest.fixture
+def api_client():
+    return APIClient()
 
 
 # BULK / zewnętrzne API
