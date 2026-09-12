@@ -7,32 +7,31 @@ import logging
 
 from rentals.models.rental import Rental
 from rentals.services.pdf_service import InvoicePDF
-from rentals.services.rental_service import cancel_rental
 
 logger = logging.getLogger(__name__)
 
 
 @shared_task
 def cancel_overdue_reservations():
+    from django.db import transaction
+    from fleet.models.car import Car
+
     threshold_time = timezone.now() - timedelta(hours=2)
 
     overdue_rentals = Rental.objects.filter(
         status="reserved", start_date__lte=threshold_time
     )
 
-    cancelled_count = 0
+    car_ids = list(overdue_rentals.values_list("car_id", flat=True))
 
-    for rental in overdue_rentals:
-        try:
-            cancel_rental(rental.id)
-            cancelled_count += 1
-            logger.info(f"Automatically canceled overdue reservation ID: {rental.id}")
-        except Exception:
-            logger.error(
-                f"Error during automatic canceling reservation ID: {rental.id}"
-            )
+    with transaction.atomic():
+        updated_count = overdue_rentals.update(
+            status="cancelled", actual_return_date=None
+        )
 
-    return f"Completed. {cancelled_count} was cancelled."
+        if car_ids:
+            Car.objects.filter(id__in=car_ids).update(car_status="available")
+    return f"Completed. {updated_count} was cancelled."
 
 
 @shared_task

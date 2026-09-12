@@ -2,8 +2,14 @@ import pytest
 from fleet.models.car import Car
 from rentals.models.rental import Rental
 from accounts.models.user import User
-import datetime
 from datetime import timedelta
+from django.utils import timezone
+from rest_framework.test import APIClient
+
+
+@pytest.fixture
+def api_client():
+    return APIClient()
 
 
 @pytest.fixture
@@ -32,10 +38,25 @@ def sample_rental(db, sample_car, sample_user):
     return Rental.objects.create(
         car=sample_car,
         user=sample_user,
-        start_date=datetime.date.today(),
-        end_date=datetime.date.today() + timedelta(days=30),
+        start_date=timezone.now() + timedelta(minutes=30),
+        end_date=timezone.now() + timedelta(days=30),
         start_mileage=10000,
     )
+
+
+@pytest.fixture
+def sample_invoice(db, sample_rental):
+    """
+    Fixtura tworząca przykładową opłaconą i zakończoną rezerwację wraz z powiązaną fakturą.
+    """
+    from decimal import Decimal
+    from invoices.services.invoice_service import create_invoice_record
+
+    sample_rental.status = "completed"
+    sample_rental.total_price = Decimal("200.00")
+    sample_rental.save()
+
+    return create_invoice_record(sample_rental)
 
 
 # BULK / zewnętrzne API

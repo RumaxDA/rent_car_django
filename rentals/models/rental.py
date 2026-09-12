@@ -24,8 +24,8 @@ class Rental(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="rentals"
     )
 
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     actual_return_date = models.DateTimeField(null=True, blank=True)
 
     total_price = models.DecimalField(
@@ -49,7 +49,22 @@ class Rental(models.Model):
     def clean(self):
         super().clean()
 
-        check_start_date(self.start_date)
+        if not self.pk:
+            active_rental_exists = Rental.objects.filter(
+                user=self.user, status__in=["reserved", "active"]
+            ).exists()
+
+            if active_rental_exists:
+                raise ValidationError(
+                    {
+                        "non_field_errors": [
+                            "User already has an active or reserved rental."
+                        ]
+                    }
+                )
+
+        if self._state.adding or self.status == "reserved":
+            check_start_date(self.start_date)
 
         if not self.start_date or not self.end_date:
             return

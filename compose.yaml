@@ -23,7 +23,7 @@ services:
       - .env
     volumes:
       - .:/app
-      - .:/app/media
+      - ./media:/app/media
 
   redis:
     image: redis:7-alpine
@@ -63,5 +63,6 @@ services:
     depends_on:
       - redis
       - db
+
 volumes:
   postgres_data:
