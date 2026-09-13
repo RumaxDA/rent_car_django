@@ -10,9 +10,23 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: npm run dev -- --host 0.0.0.0
+
   backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     container_name: backend
     ports:
@@ -22,8 +36,8 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
-      - ./media:/app/media
+      - ./backend:/app
+      - ./backend/media:/app/media
 
   redis:
     image: redis:7-alpine
@@ -31,10 +45,10 @@ services:
       - "6379:6379"
 
   celery_worker:
-    build: .
+    build: ./backend
     command: celery -A app worker --loglevel=info
     volumes:
-      - .:/app
+      - ./backend:/app
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USERNAME}
@@ -48,10 +62,10 @@ services:
       - db
 
   celery_beat:
-    build: .
+    build: ./backend
     command: celery -A app beat --loglevel=info
     volumes:
-      - .:/app
+      - ./backend:/app
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USERNAME}
