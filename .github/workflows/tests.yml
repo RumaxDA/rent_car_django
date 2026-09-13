@@ -51,7 +51,10 @@ jobs:
           ls -R
 
       - name: Running Pytest with a database
+        working-directory: ./backend
         env:
+          DJANGO_SETTINGS_MODULE: "app.settings"
+          PYTHONPATH: "."
           DJANGO_SECRET_KEY: "super-secret-test-key-only-for-github-actions"
           DEBUG: "True"
           DATABASE_ENGINE: "postgresql"
