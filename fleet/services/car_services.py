@@ -2,6 +2,7 @@ import requests
 import random
 import string
 from fleet.models.car import Car
+from django.core.exceptions import ValidationError
 
 
 class CarExternalApiService:
@@ -64,3 +65,8 @@ class CarExternalApiService:
                 }
             )
         return mapped_data
+
+
+def check_car_availability_now(car: Car) -> None:
+    if car.car_status != "available":
+        raise ValidationError("This car isn't available now.")

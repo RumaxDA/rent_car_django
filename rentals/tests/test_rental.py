@@ -3,7 +3,7 @@ from rentals.models.rental import Rental
 from datetime import timedelta
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from rentals.services.rental_service import complete_rental
+from rentals.services.rental_service import complete_rental, check_car_availability
 
 
 @pytest.mark.django_db
@@ -244,3 +244,46 @@ def test_calculate_total_price_minimum_one_day(sample_rental):
     sample_rental.refresh_from_db()
 
     assert sample_rental.total_price == Decimal("150")
+
+
+@pytest.mark.django_db
+def test_car_availability_ignores_cancelled_and_completed(
+    sample_rental, sample_user, sample_car
+):
+    sample_rental.status = "active"
+    sample_rental.save()
+
+    with pytest.raises(ValidationError) as excinfo:
+        check_car_availability(
+            car=sample_car,
+            start_date=sample_rental.start_date,
+            end_date=sample_rental.end_date,
+        )
+
+    assert "This car is already hired." in str(excinfo.value)
+
+    # Cancel first rental and create new one
+    sample_rental.status = "cancelled"
+    sample_rental.save()
+
+    try:
+        check_car_availability(
+            car=sample_car,
+            start_date=sample_rental.start_date,
+            end_date=sample_rental.end_date,
+        )
+    except ValidationError:
+        pytest.fail(
+            "check_car_availability raised  ValidationError for a cancelled rental!"
+        )
+
+    test_rental = Rental.objects.create(
+        car=sample_car,
+        user=sample_user,
+        start_date=sample_rental.start_date,
+        end_date=sample_rental.end_date,
+    )
+
+    test_rental.refresh_from_db()
+
+    assert test_rental.status == "reserved"

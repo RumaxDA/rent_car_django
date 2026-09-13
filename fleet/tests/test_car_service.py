@@ -1,5 +1,7 @@
 import pytest
-from fleet.services.car_services import CarExternalApiService
+from fleet.services.car_services import (
+    CarExternalApiService,
+)
 
 
 @pytest.mark.django_db
