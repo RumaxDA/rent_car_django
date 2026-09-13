@@ -1,7 +1,7 @@
 import pytest
-from fleet.models.car import Car
-from rentals.models.rental import Rental
-from accounts.models.user import User
+from backend.fleet.models.car import Car
+from backend.rentals.models.rental import Rental
+from backend.accounts.models.user import User
 from datetime import timedelta
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -50,7 +50,7 @@ def sample_invoice(db, sample_rental):
     Fixtura tworząca przykładową opłaconą i zakończoną rezerwację wraz z powiązaną fakturą.
     """
     from decimal import Decimal
-    from invoices.services.invoice_service import create_invoice_record
+    from backend.invoices.services.invoice_service import create_invoice_record
 
     sample_rental.status = "completed"
     sample_rental.total_price = Decimal("200.00")
