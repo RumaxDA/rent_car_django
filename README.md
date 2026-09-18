@@ -76,47 +76,6 @@ The project is fully containerized. You don't need to install Python or PostgreS
 **Step 1. Clone the repository**
 
 ```bash
-git clone https://github.com/RumaxDA/rent_car_django
+git clone [https://github.com/RumaxDA/rent_car_django](https://github.com/RumaxDA/rent_car_django)
 cd rent_car_django
-```
-
-**Step 2. Configure Environment**
-Copy the example environment file and adjust the values if necessary (the defaults are fine for local development):
-
-```bash
-cp .env.example .env
-```
-
-**Step 3. Build and Run the Containers**
-
-```bash
-docker compose up -d --build
-```
-
-**Step 4. Apply Migrations**
-Open a new terminal and run migrations inside the backend container:
-
-```bash
-docker compose exec backend python manage.py makemigrations
-```
-
-**Step 5. Create Superuser**
-Create a superuser account for the admin panel:
-
-```bash
-docker compose exec backend python manage.py createsuperuser
-```
-
-### Accessing the API
-
-**API Endpoints:** http://localhost:8000/  
-**Swagger UI Documentation:** http://localhost:8000/api/docs/  
-**Database Access:** port 5433
-
-### Running Tests
-
-The application uses pytest for automated testing. To run the test suite inside the Docker container:
-
-```bash
-docker compose exec backend pytest
 ```
