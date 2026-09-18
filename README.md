@@ -52,7 +52,10 @@ The core business domain model comprising users, cars, rentals, and invoices:
 #### 2. Rental Process Flowchart
 
 Visualizes status validation and logic flow during reservation creation and completion:
-![Rent Logic Schema](docs/Rent_Car_Logic_Schema.png)
+
+<p align="center">
+  <img src="docs/Rent_Car_Logic_Schema.png" width="350" alt="Rental Process Flowchart">
+</p>
 
 #### 3. Asynchronous Background Processes
 
