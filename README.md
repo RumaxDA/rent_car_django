@@ -9,7 +9,8 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 
 You can test the API live here (available daily from 06:00 to 20:00 CEST / UTC+2):
 **[https://rent-cars.ddns.net/api/docs/](https://rent-cars.ddns.net/api/docs/)**
-_Coming Soon: The database will be reset periodically to maintain a clean environment for testing._
+
+ <!-- _Coming Soon: The database will be reset periodically to maintain a clean environment for testing._ -->
 
 ## Tech Stack
 
@@ -40,6 +41,26 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 ## Architecture
 
 The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
+
+### System Schemas & Visualizations
+
+#### 1. Database ER Diagram
+
+The core business domain model comprising users, cars, rentals, and invoices:
+![Database Schema](docs/db_schema.png)
+
+#### 2. Rental Process Flowchart
+
+Visualizes status validation and logic flow during reservation creation and completion:
+
+<p align="center">
+  <img src="docs/Rent_Car_Logic_Schema.png" width="350" alt="Rental Process Flowchart">
+</p>
+
+#### 3. Asynchronous Background Processes
+
+Illustrates the integration of Celery workers for asynchronous PDF invoice generation and periodic checks:
+![Asynchronous Processes](docs/Asynchronous_Background_Processes.svg)
 
 ## How to run
 
