@@ -9,7 +9,8 @@ A robust, backend-only RESTful API built for managing a car rental service. Desi
 
 You can test the API live here (available daily from 06:00 to 20:00 CEST / UTC+2):
 **[https://rent-cars.ddns.net/api/docs/](https://rent-cars.ddns.net/api/docs/)**
-_Coming Soon: The database will be reset periodically to maintain a clean environment for testing._
+
+> _Coming Soon: The database will be reset periodically to maintain a clean environment for testing._
 
 ## Tech Stack
 
@@ -35,15 +36,28 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 6. **Core CRUD Operations:** Complete management of Users, Cars, and Rentals.
 7. **Query Optimization:** Built-in filtering and pagination for large datasets.
 8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards and executing automated test suites (Pytest) on every pull request and push to the main branch.
-   <<<<<<< HEAD
-   =======
 9. **Cloud-Ready Deployment:** Containerized production environment hosted on AWS, utilizing Nginx as a reverse proxy, Gunicorn for WSGI handling, and Let's Encrypt for SSL/TLS security.
 
 ## Architecture
 
 The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
 
-> > > > > > > 35d23c1632c248fdab033baea688eb887caaf06c
+### System Schemas & Visualizations
+
+#### 1. Database ER Diagram
+
+The core business domain model comprising users, cars, rentals, and invoices:
+![Database Schema](docs/db_schema.png)
+
+#### 2. Rental Process Flowchart
+
+Visualizes status validation and logic flow during reservation creation and completion:
+![Rent Logic Schema](docs/Rent_Car_Logic_Schema.png)
+
+#### 3. Asynchronous Background Processes
+
+Illustrates the integration of Celery workers for asynchronous PDF invoice generation and periodic checks:
+![Asynchronous Processes](docs/Asynchronous_Background_Processes.svg)
 
 ## How to run
 
@@ -59,47 +73,6 @@ The project is fully containerized. You don't need to install Python or PostgreS
 **Step 1. Clone the repository**
 
 ```bash
-git clone https://github.com/RumaxDA/rent_car_django
+git clone [https://github.com/RumaxDA/rent_car_django](https://github.com/RumaxDA/rent_car_django)
 cd rent_car_django
-```
-
-**Step 2. Configure Environment**
-Copy the example environment file and adjust the values if necessary (the defaults are fine for local development):
-
-```bash
-cp .env.example .env
-```
-
-**Step 3. Build and Run the Containers**
-
-```bash
-docker compose up -d --build
-```
-
-**Step 4. Apply Migrations**
-Open a new terminal and run migrations inside the backend container:
-
-```bash
-docker compose exec backend python manage.py makemigrations
-```
-
-**Step 5. Create Superuser**
-Create a superuser account for the admin panel:
-
-```bash
-docker compose exec backend python manage.py createsuperuser
-```
-
-### Accessing the API
-
-**API Endpoints:** http://localhost:8000/  
-**Swagger UI Documentation:** http://localhost:8000/api/docs/  
-**Database Access:** port 5433
-
-### Running Tests
-
-The application uses pytest for automated testing. To run the test suite inside the Docker container:
-
-```bash
-docker compose exec backend pytest
 ```
