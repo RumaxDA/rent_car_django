@@ -35,11 +35,15 @@ _Coming Soon: The database will be reset periodically to maintain a clean enviro
 6. **Core CRUD Operations:** Complete management of Users, Cars, and Rentals.
 7. **Query Optimization:** Built-in filtering and pagination for large datasets.
 8. **Continuous Integration (CI):** Automated workflows enforcing strict PEP8 code quality standards and executing automated test suites (Pytest) on every pull request and push to the main branch.
+   <<<<<<< HEAD
+   =======
 9. **Cloud-Ready Deployment:** Containerized production environment hosted on AWS, utilizing Nginx as a reverse proxy, Gunicorn for WSGI handling, and Let's Encrypt for SSL/TLS security.
 
 ## Architecture
 
 The application follows the **Service Layer pattern**, ensuring that business logic is completely decoupled from Django views. This allows for cleaner unit tests and higher maintainability.
+
+> > > > > > > 35d23c1632c248fdab033baea688eb887caaf06c
 
 ## How to run
 
