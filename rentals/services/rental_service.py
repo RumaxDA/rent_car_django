@@ -2,20 +2,17 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.db import transaction
 import django.utils.timezone
-from django.utils import timezone
-from datetime import timedelta
-import math
 
 
 def get_max_date(start_date):
     if not start_date:
-        return timezone.now() + datetime.timedelta(days=365 * 5)
+        return datetime.date.today() + datetime.timedelta(days=365 * 5)
 
     return start_date + datetime.timedelta(days=365 * 5)
 
 
 def check_start_date(start_date):
-    if start_date < timezone.now():
+    if start_date < datetime.date.today():
         raise ValidationError("Start date cannot be in the past")
 
 
@@ -26,7 +23,7 @@ def check_car_availability(car, start_date, end_date, current_rental_id=None):
         Rental.objects.filter(
             car=car,
             start_date__lt=end_date,
-            end_date__gt=start_date - timedelta(hours=2),
+            end_date__gt=start_date,
         )
         .exclude(status="cancelled")
         .exclude(status="completed")
@@ -58,7 +55,7 @@ def activate_rental(rental_id):
                 " Only 'reserved' status is allowed!"
             )
 
-        if rental.start_date > timezone.now():
+        if rental.start_date > datetime.date.today():
             raise ValidationError(
                 "Too early! The client has a reservation for a later date."
             )
@@ -72,7 +69,6 @@ def activate_rental(rental_id):
 
 def complete_rental(rental_id, end_mileage):
     from rentals.models.rental import Rental
-    from invoices.services.invoice_service import create_invoice_record
 
     with transaction.atomic():
         rental = Rental.objects.select_for_update().get(id=rental_id)
@@ -83,13 +79,11 @@ def complete_rental(rental_id, end_mileage):
                 " Only 'active' status is allowed!"
             )
 
-        if rental.start_mileage is not None:
-            if end_mileage < rental.start_mileage:
-                raise ValidationError(
-                    "The mileage cannot be lower than at the start of the rental"
-                )
+        if end_mileage < rental.start_mileage:
+            raise ValidationError(
+                "The mileage cannot be lower than at the start of the rental"
+            )
 
-        # Update rental and car state
         rental.status = "completed"
         rental.car.car_status = "available"
 
@@ -97,26 +91,15 @@ def complete_rental(rental_id, end_mileage):
         rental.car.mileage = rental.end_mileage
 
         rental.actual_return_date = django.utils.timezone.now()  # RRRR-MM-DD HH-MM
+        convert_return_date = rental.actual_return_date.date()  # Only Date
 
-        # Calculate base price for the duration
         actual_total_price = calculate_total_price(
-            rental.price_per_day, rental.start_date, rental.actual_return_date
+            rental.price_per_day, rental.start_date, convert_return_date
         )
         rental.total_price = actual_total_price
 
-        # Penalty (50 PLN per hour) if returned past schedule.
-        if rental.actual_return_date > rental.end_date:
-            after_time = rental.actual_return_date - rental.end_date
-            hours_late = math.ceil(after_time.total_seconds() / 3600)
-
-            penalty = hours_late * 50
-            rental.total_price += penalty
-            actual_total_price = rental.total_price
-
         rental.car.save()
         rental.save()
-
-        create_invoice_record(rental)
 
 
 def cancel_rental(rental_id):

@@ -43,8 +43,7 @@ class CreateRentalSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        user = self.context["request"].user
-        rental = Rental(user=user, **validated_data, status="reserved")
+        rental = Rental(**validated_data, status="reserved")
         rental.save()
         return rental
 
