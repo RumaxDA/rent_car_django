@@ -83,10 +83,11 @@ def complete_rental(rental_id, end_mileage):
                 " Only 'active' status is allowed!"
             )
 
-        if end_mileage < rental.start_mileage:
-            raise ValidationError(
-                "The mileage cannot be lower than at the start of the rental"
-            )
+        if rental.start_mileage is not None:
+            if end_mileage < rental.start_mileage:
+                raise ValidationError(
+                    "The mileage cannot be lower than at the start of the rental"
+                )
 
         # Update rental and car state
         rental.status = "completed"
