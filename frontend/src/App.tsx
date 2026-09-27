@@ -15,7 +15,6 @@ function App() {
     <Router>
       <TopBar />
       <div className="app-container">
-
         <Navbar />
 
         <main>
