@@ -5,6 +5,7 @@ import "./App.css";
 import TopBar from "./components/organisms/TopBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Footer from "./components/organisms/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
