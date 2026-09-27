@@ -2,9 +2,11 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 grid grid-cols-3 items-center px-15 py-4 bg-slate-900/50 backdrop-blur-md text-white shadow-md">
       <div className="justify-self-start font-bold text-2xl tracking-wide text-blue-400">
-        <a href="/">RENT CAR</a>
+        <a href="/" className="text-2xl font-bold text-white">
+          Auto<span className="text-blue-500">Rent</span>
+        </a>
       </div>
-      <ul className="justify-self-center flex items-center space-x-6 text-lg">
+      <ul className="justify-self-center flex items-center space-x-6 text-lg font-sans">
         <li>
           <a href="/offer" className="hover:text-blue-400 transition-colors">
             Offer
