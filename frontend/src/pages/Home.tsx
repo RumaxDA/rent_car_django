@@ -2,9 +2,16 @@ import Card from "../components/molecules/Card";
 import CategoryCard from "../components/molecules/CategoryCard";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Searchbar from "../components/organisms/Searchbar";
+import { useState } from "react";
 
 const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (value: string) => {
+    setSearch(value);
+  };
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -36,7 +43,7 @@ const Home = () => {
 
           <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 max-w-4xl mx-auto">
             <span className="text-slate-400 text-sm">
-              [ Searchbar Component Placeholder ]
+              <Searchbar value={search} onChange={handleSearch} />
             </span>
           </div>
         </div>
