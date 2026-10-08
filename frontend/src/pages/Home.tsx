@@ -16,15 +16,13 @@ const Home = () => {
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const { scrollLeft, clientWidth } = scrollContainerRef.current;
-
-      const scrollAmount = clientWidth * 1;
+      const scrollAmount = clientWidth * 0.75;
 
       scrollContainerRef.current.scrollTo({
         left:
           direction === "left"
             ? scrollLeft - scrollAmount
             : scrollLeft + scrollAmount,
-        behavior: "smooth",
       });
     }
   };
@@ -32,19 +30,25 @@ const Home = () => {
     <div className="w-full flex flex-col gap-16 py-8">
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 text-center">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-4">
-            Find Your Perfect Drive
-          </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto mb-8 text-sm sm:text-base">
-            Choose from hundreds of premium and affordable vehicles ready for
-            your next journey.
-          </p>
+        <div
+          className="relative rounded-2xl p-8 sm:p-16 border border-slate-700 text-center bg-cover bg-center overflow-hidden shadow-2xl"
+          style={{
+            backgroundImage: `url('/images/background/searchbar_bg.jpg')`,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-950/60" />
+          <div className="relative z-10">
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-4">
+              Find Your Perfect Drive
+            </h1>
+            <p className="text-slate-400 max-w-2xl mx-auto mb-8 text-sm sm:text-base">
+              Choose from hundreds of premium and affordable vehicles ready for
+              your next journey.
+            </p>
 
-          <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 max-w-4xl mx-auto">
-            <span className="text-slate-400 text-sm">
+            <div className="bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-700 max-w-4xl mx-auto shadow-2xl">
               <Searchbar value={search} onChange={handleSearch} />
-            </span>
+            </div>
           </div>
         </div>
       </section>
@@ -77,14 +81,14 @@ const Home = () => {
         {/* Siatka kafelków kategorii */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto scrollbar-none scroll-smooth pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
+          className="carousel-container flex gap-4 overflow-x-auto scrollbar-none scroll-smooth pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // Ukrywanie paska przewijania w przeglądarkach
         >
           {/* Każdy kafelek musi mieć stałą minimalną szerokość, żeby nie zgniatały się w flexie */}
           <div className="min-w-65 sm:min-w-[calc(50%-8px)] lg:min-w-[calc(25%-12px)] shrink-0">
             <CategoryCard
               title="All Vehicles"
-              image="/images/categories/hatchback_remove.png"
+              image="/images/categories/car_r.png"
               count="120+ cars"
             />
           </div>
