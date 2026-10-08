@@ -3,13 +3,11 @@ from rembg import remove
 from PIL import Image
 
 # Store path of the image in the variable input_path
-input_path = (
-    "D:\\GitHub\\django-project\\frontend\\public\\images\\categories\\sports_car.jpg"
-)
+input_path = "D:\\GitHub\\django-project\\frontend\\public\\images\\categories\\car.jpg"
 
 # Store path of the output image in the variable output_path
 output_path = (
-    "D:\\GitHub\\django-project\\frontend\\public\\images\\categories\\sports_car_r.png"
+    "D:\\GitHub\\django-project\\frontend\\public\\images\\categories\\car_r.png"
 )
 
 # Processing the image
