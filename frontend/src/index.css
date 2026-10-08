@@ -54,6 +54,17 @@ html, body {
   color: var(--text);
 }
 
+body {
+  background-color: #0b0f19; /* Twój ciemny kolor bazowy */
+  background-image: url('/images/background/hero-accent.svg'); /* Ścieżka do Twojego SVG z Figmy */
+  background-size: cover;        /* Rozciąga na całą stronę */
+  background-position: center;   /* Centruje */
+  background-attachment: fixed;  /* Sprawia, że tło stoi w miejscu podczas przewijania (efekt parallax/premium) */
+  background-repeat: no-repeat;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
 #root {
   min-height: 100vh;
   display: flex;
@@ -96,4 +107,14 @@ code {
   background-color: var(--code-bg);
   color: var(--text-h);
   border: 1px solid var(--border);
+}
+
+.custom-scrollbar{
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position; 
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
 }
