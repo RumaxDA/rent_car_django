@@ -1,3 +1,4 @@
+import { ParticleBackground } from "../atoms/ParticleBackground";
 import {
   FaFacebook,
   FaInstagram,
@@ -11,9 +12,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-slate-900 text-slate-400 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Main Footer Grid - mniejszy gap i margines dolny dla płaskiego wyglądu */}
+    /* DODANO: relative oraz overflow-hidden */
+    <footer className="relative w-full bg-slate-900 text-slate-400 border-t border-slate-800 overflow-hidden">
+      {/* Tło z cząsteczkami */}
+      <ParticleBackground className="opacity-30" />
+
+      {/* DODANO: relative z-10, żeby treść była widoczna nad canvasem */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Column 1: About / Branding */}
           <div className="flex flex-col gap-3">
@@ -31,7 +37,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-800/80 backdrop-blur-sm flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:text-white transition-colors"
               >
                 <FaFacebook size={15} />
               </a>
@@ -40,7 +46,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-pink-600 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-800/80 backdrop-blur-sm flex items-center justify-center text-slate-300 hover:bg-pink-600 hover:text-white transition-colors"
               >
                 <FaInstagram size={15} />
               </a>
@@ -49,7 +55,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-blue-700 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-800/80 backdrop-blur-sm flex items-center justify-center text-slate-300 hover:bg-blue-700 hover:text-white transition-colors"
               >
                 <FaLinkedin size={15} />
               </a>
@@ -148,7 +154,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email"
-                className="px-3 py-1.5 text-xs rounded border border-slate-700 bg-slate-800 text-white outline-none focus:border-blue-500"
+                className="px-3 py-1.5 text-xs rounded border border-slate-700 bg-slate-800/90 text-white outline-none focus:border-blue-500"
               />
               <button
                 type="submit"
