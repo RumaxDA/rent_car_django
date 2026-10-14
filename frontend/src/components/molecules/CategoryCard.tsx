@@ -23,6 +23,7 @@ const CategoryCard = ({
         <img
           src={image}
           alt={title}
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       )}

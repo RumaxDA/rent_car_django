@@ -16,7 +16,7 @@ const Home = () => {
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const { scrollLeft, clientWidth } = scrollContainerRef.current;
-      const scrollAmount = clientWidth * 0.75;
+      const scrollAmount = clientWidth * 1;
 
       scrollContainerRef.current.scrollTo({
         left:
@@ -31,13 +31,13 @@ const Home = () => {
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div
-          className="relative rounded-2xl py-8 px-6 sm:py-12 sm:px-12 border border-slate-700 text-center bg-cover bg-center overflow-hidden shadow-2xl"
+          className="flex flex-col items-center relative rounded-2xl py-8 px-6 sm:py-12 sm:px-12 border border-slate-700 text-center bg-cover bg-center overflow-hidden shadow-2xl"
           style={{
             backgroundImage: `url('/images/background/searchbar_bg.jpg')`,
           }}
         >
           <div className="absolute inset-0 bg-slate-950/60" />
-          <div className="relative z-10">
+          <div className="relative z-10 w-3xl">
             <h1 className="text-2xl sm:text-5xl font-extrabold text-white mb-3">
               Find Your Perfect Drive
             </h1>
@@ -46,7 +46,7 @@ const Home = () => {
               your next journey.
             </p>
 
-            <div className="bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-700 max-w-4xl mx-auto shadow-2xl">
+            <div className="bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-700 w-full mx-auto shadow-2xl">
               <Searchbar value={search} onChange={handleSearch} />
             </div>
           </div>
