@@ -6,6 +6,8 @@ import TopBar from "./components/organisms/TopBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Footer from "./components/organisms/Footer";
+import Faq from "./pages/FAQ";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/FAQ" element={<Faq />} />
+            <Route path="/About" element={<About />} />
           </Routes>
         </main>
         <Footer />
