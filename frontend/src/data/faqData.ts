@@ -7,62 +7,62 @@ export interface FaqItem {
 export const faqData: FaqItem[] = [
   {
     id: 1,
-    question: "Jakie dokumenty są wymagane do wypożyczenia samochodu?",
+    question: "What documents are required to rent a car?",
     answer:
-      "Do podpisania umowy potrzebujesz ważnego prawa jazdy (posiadanego od co najmniej 12 miesięcy), dowodu osobistego lub paszportu oraz karty płatniczej na imię i nazwisko głównego kierowcy.",
+      "To sign the rental agreement, you need a valid driving license (held for at least 12 months), an ID card or passport, and a payment card in the main driver's name.",
   },
   {
     id: 2,
-    question: "Czy jest pobierana kaucja zwrotna?",
+    question: "Is there a refundable security deposit?",
     answer:
-      "Tak, podczas odbioru auta na karcie płatniczej blokowana jest kaucja zwrotna. Jej wysokość zależy od klasy wybranego pojazdu. Środki są odblokowywane automatycznie po zwrocie nieuszkodzonego auta.",
+      "Yes, a refundable security deposit is temporarily authorized on your payment card upon vehicle pickup. The amount depends on the vehicle class. The funds are automatically released once the undamaged car is returned.",
   },
   {
     id: 3,
-    question: "Czy obowiązuje limit kilometrów?",
+    question: "Are there any mileage limits?",
     answer:
-      "Wszystkie nasze standardowe wynajmy krótkoterminowe posiadają brak limitu kilometrów na terytorium Polski. Przy wyjazdach zagranicznych obowiązują indywidualne ustalenia.",
+      "All our standard short-term rentals come with unlimited mileage within Poland. For trips abroad, individual terms and conditions apply.",
   },
   {
     id: 4,
-    question: "Ile lat muszę mieć, aby wynająć auto?",
+    question: "How old do I need to be to rent a car?",
     answer:
-      "Minimalny wiek kierowcy to 21 lat dla klas ekonomicznych oraz 25 lat dla aut klasy premium i sportowych. Wymagane jest również posiadanie prawa jazdy od minimum roku.",
+      "The minimum driver age is 21 for economy classes and 25 for premium and sports cars. A driving license held for at least one year is also required.",
   },
   {
     id: 5,
-    question: "Czy samochód mogę odebrać i zwrócić w innym mieście?",
+    question: "Can I pick up the car in one city and return it in another?",
     answer:
-      "Tak, oferujemy usługę One-Way Rental. Podczas składania rezerwacji wystarczy wskazać inną lokalizację zwrotu (np. lotnisko lub inny punkt partnerski). Usługa może wiązać się z dodatkową opłatą.",
+      "Yes, we offer a One-Way Rental service. Simply select a different return location (e.g., an airport or another partner point) during booking. This service may incur an additional fee.",
   },
   {
     id: 6,
-    question: "Jaka jest polityka paliwowa?",
+    question: "What is the fuel policy?",
     answer:
-      "Obowiązuje zasada 'pełny do pełnego' (Full-to-Full). Odbierasz auto z pełnym zbiornikiem paliwa i w takim samym stanie powinieneś je zwrócić.",
+      "The 'Full-to-Full' policy applies. You receive the car with a full tank of fuel and are expected to return it in the exact same condition.",
   },
   {
     id: 7,
-    question: "Co zawiera pełne ubezpieczenie (Full Protection)?",
+    question: "What does Full Protection insurance cover?",
     answer:
-      "Pełne ubezpieczenie znosi odpowiedzialność finansową kierowcy w przypadku uszkodzenia nadwozia, kradzieży, zarysowań czy uszkodzeń szyb i opon, redukując wkład własny do zera.",
+      "Full Protection eliminates the driver's financial liability in the event of body damage, theft, scratches, or glass and tire damage, reducing the deductible to zero.",
   },
   {
     id: 8,
-    question: "Czy auto może prowadzić dodatkowy kierowca?",
+    question: "Can an additional driver drive the car?",
     answer:
-      "Tak, istnieje możliwość dopisania drugiego kierowcy do umowy. Osoba ta musi spełniać te same wymagania wiekowe i przedstawić ważne prawo jazdy podczas odbioru pojazdu.",
+      "Yes, an additional driver can be added to the agreement. This person must meet the same age requirements and present a valid driving license at vehicle pickup.",
   },
   {
     id: 9,
-    question: "Co zrobić w przypadku awarii lub kolizji?",
+    question: "What should I do in case of a breakdown or collision?",
     answer:
-      "Wszystkie nasze auta objęte są całodobową opieką Assistance 24/7. W razie jakiegokolwiek zdarzenia niezwłocznie skontaktuj się z naszą infolinią alarmową podaną w dokumentach wynajmu.",
+      "All our cars are covered by 24/7 roadside assistance. In the event of any incident, contact our emergency hotline listed in your rental documents immediately.",
   },
   {
     id: 10,
-    question: "Czy mogę odwołać lub zmienić rezerwację?",
+    question: "Can I cancel or modify my reservation?",
     answer:
-      "Bezpłatne odwołanie lub zmiana rezerwacji jest możliwa do 24 godzin przed planowanym terminem odbioru samochodu bezpośrednio w panelu użytkownika lub kontaktując się z nami.",
+      "Free cancellation or modification is available up to 24 hours before the scheduled pickup time, either directly in your user panel or by contacting us.",
   },
 ];

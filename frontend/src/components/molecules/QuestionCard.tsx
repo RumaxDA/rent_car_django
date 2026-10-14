@@ -33,12 +33,17 @@ const QuestionCard = ({
           <FaChevronDown size={10} />
         </span>
       </div>
-
-      {isOpen && (
-        <div className="px-6 pb-4 pt-2 text-slate-300 text-sm sm:text-base border-t border-slate-800/60 wrap-break-word">
-          {answer}
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-6 pb-4 pt-2 text-slate-300 text-sm sm:text-base border-t border-slate-800/60 wrap-break-word">
+            {answer}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
