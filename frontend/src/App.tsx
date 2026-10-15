@@ -6,7 +6,8 @@ import TopBar from "./components/organisms/TopBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Footer from "./components/organisms/Footer";
-import Faq from "./pages/FAQ";
+import Faq from "./pages/Faq";
+import Contact from "./pages/Contact";
 import About from "./pages/About";
 
 function App() {
@@ -14,11 +15,9 @@ function App() {
     <Router>
       <TopBar />
       <div className="app-container">
-        {/* Nawigacja widoczna na każdej stronie */}
 
         <Navbar />
 
-        {/* Główna treść przełączana przez routing */}
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -26,6 +25,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/FAQ" element={<Faq />} />
             <Route path="/About" element={<About />} />
+            <Route path="/Contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />

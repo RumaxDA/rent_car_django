@@ -12,12 +12,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    /* DODANO: relative oraz overflow-hidden */
     <footer className="relative w-full bg-slate-900 text-slate-400 border-t border-slate-800 overflow-hidden">
-      {/* Tło z cząsteczkami */}
       <ParticleBackground className="opacity-30" />
 
-      {/* DODANO: relative z-10, żeby treść była widoczna nad canvasem */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -87,7 +84,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/faq"
-                  className="hover:text-blue-400 transition-colors font-medium text-slate-200"
+                  className="hover:text-blue-400 transition-colors font-medium"
                 >
                   FAQ (Frequently Asked Questions)
                 </a>
@@ -112,7 +109,7 @@ const Footer = () => {
               <li>
                 <a
                   href="tel:+48123456789"
-                  className="flex items-center gap-2.5 hover:text-blue-400 transition-colors"
+                  className="flex w-fit items-center gap-2.5 hover:text-blue-400 transition-colors"
                 >
                   <FaPhoneAlt className="text-blue-500 shrink-0" />
                   <span>+48 123 456 789</span>
@@ -121,7 +118,7 @@ const Footer = () => {
               <li>
                 <a
                   href="mailto:kontakt@autorent.pl"
-                  className="flex items-center gap-2.5 hover:text-blue-400 transition-colors"
+                  className="flex w-fit items-center gap-2.5 hover:text-blue-400 transition-colors"
                 >
                   <FaEnvelope className="text-blue-500 shrink-0" />
                   <span>kontakt@autorent.pl</span>
