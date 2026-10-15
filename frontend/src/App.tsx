@@ -15,11 +15,9 @@ function App() {
     <Router>
       <TopBar />
       <div className="app-container">
-        {/* Nawigacja widoczna na każdej stronie */}
 
         <Navbar />
 
-        {/* Główna treść przełączana przez routing */}
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
