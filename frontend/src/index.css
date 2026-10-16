@@ -55,14 +55,41 @@ html, body {
 }
 
 body {
-  background-color: #0b0f19; /* Twój ciemny kolor bazowy */
-  background-image: url('/images/background/hero-accent.svg'); /* Ścieżka do Twojego SVG z Figmy */
-  background-size: cover;        /* Rozciąga na całą stronę */
-  background-position: center;   /* Centruje */
-  background-attachment: fixed;  /* Sprawia, że tło stoi w miejscu podczas przewijania (efekt parallax/premium) */
-  background-repeat: no-repeat;
-  color: #ffffff;
-  min-height: 100vh;
+  background-color: #0b0f19 !important;
+  background-image: url('/images/background/hero-accent.svg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  color: #ffffff !important;
+  min-height: 100vh !important;
+  position: relative !important;
+  overflow-x: hidden !important; 
+}
+
+body::before, body::after {
+  content: "" !important;
+  position: fixed !important;
+  width: 40vw !important;       
+  height: 40vw !important;    
+  border-radius: 50% !important;
+  filter: blur(140px) !important;
+  z-index: 0 !important;
+  opacity: 0.25 !important;      
+  pointer-events: none !important;
+  display: block !important;
+}
+
+body::before {
+  top: -12% !important;
+  right: -8% !important;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.7) 0%, rgba(59, 130, 246, 0) 70%) !important;
+}
+
+body::after {
+  bottom: -12% !important;
+  left: -8% !important;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0) 70%) !important;
 }
 
 #root {
@@ -70,9 +97,10 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative !important;
+  z-index: 1 !important; /* Unosi całą treść strony nad poświaty */
 }
 
-/* Nowoczesne nagłówki zbalansowane pod UI aplikacji */
 h1, h2, h3, h4 {
   font-family: var(--sans);
   color: var(--text-h);

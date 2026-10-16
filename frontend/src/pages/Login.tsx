@@ -2,8 +2,69 @@ import LoginForm from "../components/organisms/LoginForm";
 
 const Login = () => {
   return (
-    <div className="min-h-[calc(100vh-97px)] flex items-center justify-center px-4">
-      <LoginForm></LoginForm>
+    <div className="min-h-[calc(100vh-97px)] flex items-center justify-center px-0 overflow-hidden">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 h-full min-h-[80vh] bg-slate-900/40 backdrop-blur-sm rounded-3xl overflow-hidden border border-slate-800 shadow-2xl mx-4 my-4">
+        {/* Left Side: Visual Section */}
+        <div className="relative hidden lg:flex flex-col justify-center p-12 text-white overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center z-0"
+            style={{
+              backgroundImage: `url('/images/background/login_bg.jpg')`,
+            }}
+          >
+            <div className="absolute inset-0 bg-linear-to-br from-slate-950/80 via-slate-950/40 to-slate-950/80" />
+          </div>
+
+          <div className="relative z-10">
+            <h1 className="text-4xl sm:text-6xl font-black mb-6 tracking-tight leading-tight">
+              Ready for your <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-400">
+                Next Adventure?
+              </span>
+            </h1>
+            <p className="text-slate-300 text-lg leading-relaxed max-w-md font-light">
+              Log in to access your dashboard, manage your bookings, and
+              discover the perfect vehicle for your journey.
+            </p>
+
+            {/* Decorative element */}
+            <div className="mt-12 flex gap-4">
+              <div className="h-1 w-12 bg-blue-500 rounded-full" />
+              <div className="h-1 w-4 bg-slate-600 rounded-full" />
+              <div className="h-1 w-4 bg-slate-600 rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Form Section */}
+        <div className="flex items-center justify-center p-8 sm:p-16 bg-slate-900/60">
+          <div className="w-full max-w-md">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-white mb-2">
+                Welcome Back
+              </h2>
+              <p className="text-slate-400">
+                Please enter your details to sign in
+              </p>
+            </div>
+
+            <div className="relative">
+              <LoginForm />
+            </div>
+
+            <p className="text-center text-slate-500 mt-8 text-sm">
+              Don't have an account?{" "}
+              <a
+                href="/register"
+                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+              >
+                Create one now
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
