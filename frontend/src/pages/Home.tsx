@@ -31,22 +31,29 @@ const Home = () => {
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div
-          className="flex flex-col items-center relative rounded-2xl py-8 px-6 sm:py-12 sm:px-12 border border-slate-700 text-center bg-cover bg-center overflow-hidden shadow-2xl"
+          className="relative rounded-3xl py-16 px-6 sm:py-24 sm:px-12 border border-slate-700/50 text-center bg-cover bg-center overflow-hidden shadow-2xl group"
           style={{
             backgroundImage: `url('/images/background/searchbar_bg.jpg')`,
           }}
         >
-          <div className="absolute inset-0 bg-slate-950/60" />
-          <div className="relative z-10 w-3xl">
-            <h1 className="text-2xl sm:text-5xl font-extrabold text-white mb-3">
-              Find Your Perfect Drive
+          {/* Dynamic Overlay & Glow */}
+          <div className="absolute inset-0 bg-linear-to-b from-slate-950/70 via-slate-950/50 to-slate-950/80 transition-opacity group-hover:opacity-90" />
+          <div className="absolute -top-24 -right-24 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-indigo-600/20 rounded-full blur-3xl" />
+
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <h1 className="text-3xl sm:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+              Find Your{" "}
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-400">
+                Perfect Drive
+              </span>
             </h1>
-            <p className="text-slate-400 max-w-2xl mx-auto mb-6 text-sm sm:text-base">
+            <p className="text-slate-300 max-w-2xl mx-auto mb-10 text-base sm:text-lg leading-relaxed font-light">
               Choose from hundreds of premium and affordable vehicles ready for
-              your next journey.
+              your next journey. Experience luxury and comfort in every mile.
             </p>
 
-            <div className="bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-700 w-full mx-auto shadow-2xl">
+            <div className="bg-slate-900/40 backdrop-blur-xl p-3 rounded-2xl border border-white/10 w-full mx-auto shadow-2xl transition-all duration-300 hover:border-blue-500/30">
               <Searchbar value={search} onChange={handleSearch} />
             </div>
           </div>
@@ -56,9 +63,12 @@ const Home = () => {
       {/* 2. CATEGORIES SECTION (Kafelki kategorii) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-white mb-6">
-            Browse by Category
-          </h2>
+          <div>
+            <h2 className="text-xl font-bold text-white mb-2">
+              Browse by Category
+            </h2>
+            <div className="h-1 w-12 bg-blue-500 rounded-full" />
+          </div>
 
           <div className="flex items-center gap-2">
             <button
@@ -78,13 +88,11 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Siatka kafelków kategorii */}
         <div
           ref={scrollContainerRef}
           className="carousel-container flex gap-4 overflow-x-auto scrollbar-none scroll-smooth pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // Ukrywanie paska przewijania w przeglądarkach
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {/* Każdy kafelek musi mieć stałą minimalną szerokość, żeby nie zgniatały się w flexie */}
           <div className="min-w-65 sm:min-w-[calc(50%-8px)] lg:min-w-[calc(25%-12px)] shrink-0">
             <CategoryCard
               title="All Vehicles"
@@ -139,10 +147,22 @@ const Home = () => {
 
       {/* 3. FEATURED FLEET */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-white">Featured Vehicles</h2>
-          <a href="/fleet" className="text-sm text-blue-500 hover:underline">
-            View All →
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-bold text-white">Featured Vehicles</h2>
+
+            <div className="h-1 w-12 bg-blue-500 rounded-full" />
+          </div>
+        </div>
+        <div className="flex justify-end mb-6">
+          <a
+            href="/fleet"
+            className="group flex items-center gap-2 text-sm font-medium text-blue-500 hover:text-blue-400 transition-colors"
+          >
+            View All
+            <span className="group-hover:translate-x-2 transition-transform duration-300">
+              →
+            </span>
           </a>
         </div>
 
