@@ -9,7 +9,7 @@ export interface CardProps {
   children?: React.ReactNode;
 }
 
-const Card = ({
+const FleetCard = ({
   image,
   title,
   tag,
@@ -66,4 +66,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default FleetCard;

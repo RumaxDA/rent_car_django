@@ -37,18 +37,25 @@ const LoginForm = () => {
           value={password}
           onChange={handlePassword}
         />
-        
+
         <div className="flex items-center justify-between mb-2">
           <label className="flex items-center gap-2 cursor-pointer group">
-            <input 
-              type="checkbox" 
+            <input
+              type="checkbox"
               className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900"
               checked={rememberMe}
               onChange={handleRememberMe}
             />
-            <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">Remember me</span>
+            <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+              Remember me
+            </span>
           </label>
-          <a href="#" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</a>
+          <a
+            href="#"
+            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            Forgot password?
+          </a>
         </div>
 
         <div className="mt-2">
@@ -69,14 +76,14 @@ const LoginForm = () => {
       </div>
 
       <div className="flex justify-center gap-6">
-        <button 
-          className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:scale-110"
+        <button
+          className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:scale-110 cursor-pointer"
           type="button"
         >
           <FaGoogle className="text-red-500" />
         </button>
-        <button 
-          className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:scale-110"
+        <button
+          className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:scale-110 cursor-pointer"
           type="button"
         >
           <FaFacebookF className="text-blue-500" />
