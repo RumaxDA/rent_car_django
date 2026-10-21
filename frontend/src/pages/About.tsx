@@ -27,13 +27,19 @@ const About = () => {
               </span>
               , <br />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 830ef9d (frontend: implement Fleet page and integrate dynamic car listing)
               Built for{" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-400">
                 You
               </span>
+<<<<<<< HEAD
 =======
               Built for You
 >>>>>>> 8d1a34f (style(frontend): refine global CSS glows, card layouts, and page styling (About, Contact, Auth))
+=======
+>>>>>>> 830ef9d (frontend: implement Fleet page and integrate dynamic car listing)
             </h1>
             <p className="text-slate-300 mb-8 text-lg sm:text-xl leading-relaxed font-light">
               We are redefining car rentals by combining a modern fleet,
