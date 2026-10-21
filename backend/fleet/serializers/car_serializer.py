@@ -19,6 +19,7 @@ class CarSerializer(serializers.ModelSerializer):
             "number_plate",
             "mileage",
             "car_status",
+            "price",
         ]
 
 
