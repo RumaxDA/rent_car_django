@@ -9,6 +9,7 @@ import Footer from "./components/organisms/Footer";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Fleet from "./pages/Fleet";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/FAQ" element={<Faq />} />
             <Route path="/About" element={<About />} />
             <Route path="/Contact" element={<Contact />} />
+            <Route path="/Fleet" element={<Fleet />} />
           </Routes>
         </main>
         <Footer />
