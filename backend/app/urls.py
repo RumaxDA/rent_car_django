@@ -30,6 +30,7 @@ from fleet.urls import router as fleet_router
 from accounts.urls import router as users_router
 from rentals.urls import router as rentals_router
 from invoices.urls import router as invoices_router
+from car_images.urls import router as car_images_router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -46,4 +47,5 @@ urlpatterns = [
     path("api/", include(users_router.urls)),
     path("api/", include(rentals_router.urls)),
     path("api/", include(invoices_router.urls)),
+    path("api/", include(car_images_router.urls)),
 ]

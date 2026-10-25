@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "invoices",
+    "car_images",
 ]
 
 MIDDLEWARE = [
@@ -195,3 +196,5 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute="*/15"),
     },
 }
+
+SPECTACULAR_SETTINGS = {"COMPONENT_SPLIT_REQUEST": True}
