@@ -26,7 +26,10 @@ const About = () => {
                 Passion
               </span>
               , <br />
-              Built for You
+              Built for{" "}
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-400">
+                You
+              </span>
             </h1>
             <p className="text-slate-300 mb-8 text-lg sm:text-xl leading-relaxed font-light">
               We are redefining car rentals by combining a modern fleet,

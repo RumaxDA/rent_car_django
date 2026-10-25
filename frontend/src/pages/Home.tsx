@@ -1,9 +1,9 @@
-import Card from "../components/molecules/Card";
 import CategoryCard from "../components/molecules/CategoryCard";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Searchbar from "../components/organisms/Searchbar";
 import { useState } from "react";
+import FleetCard from "../components/molecules/FleetCard";
 
 const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -167,21 +167,21 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card
+          <FleetCard
             image="https://carnet.pl/app/uploads/2025/05/7-1.png"
             title="Toyota Hilux"
             price={350}
             tag="Popular"
             text="Reliable pickup truck perfect for difficult terrain and heavy tasks."
           />
-          <Card
+          <FleetCard
             image="https://carnet.pl/app/uploads/2025/05/7-1.png"
             title="Toyota Hilux"
             price={350}
             tag="Available"
             text="Reliable pickup truck perfect for difficult terrain and heavy tasks."
           />
-          <Card
+          <FleetCard
             image="https://carnet.pl/app/uploads/2025/05/7-1.png"
             title="Toyota Hilux"
             price={350}
