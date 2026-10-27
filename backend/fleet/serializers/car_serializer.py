@@ -32,6 +32,7 @@ class CreateCarSerializer(serializers.ModelSerializer):
             "brand",
             "model",
             "year",
+            "price",
             "hp",
             "engine_type",
             "number_plate",
