@@ -16,30 +16,42 @@ const QuestionCard = ({
 
   return (
     <div
-      className={`flex flex-col w-full bg-slate-900/90 border border-slate-700 rounded-2xl overflow-hidden transition-all duration-300 ${className}`}
+      className={`group flex flex-col w-full bg-slate-900/60 border backdrop-blur-md rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ${
+        isOpen
+          ? "border-blue-500/40 shadow-blue-500/5"
+          : "border-white/10 hover:border-white/20 hover:bg-slate-900/80"
+      } ${className}`}
     >
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-6 py-4 bg-slate-800/50 hover:bg-slate-800 cursor-pointer group select-none transition-colors"
+        className="flex items-center justify-between w-full px-6 py-4.5 cursor-pointer select-none transition-colors"
       >
-        <span className="text-lg font-medium text-white/90 group-hover:text-white flex-1 min-w-0 wrap-break-word pr-4">
-          {question}
-        </span>
         <span
-          className={`w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 group-hover:text-white transition-transform duration-300 shrink-0 ${
-            isOpen ? "rotate-180" : ""
+          className={`text-base sm:text-lg font-semibold tracking-tight transition-colors duration-300 flex-1 min-w-0 pr-4 ${
+            isOpen ? "text-blue-400" : "text-white group-hover:text-blue-400"
           }`}
         >
-          <FaChevronDown size={10} />
+          {question}
+        </span>
+
+        <span
+          className={`w-8 h-8  flex items-center justify-center transition-all duration-300 shrink-0 ${
+            isOpen
+              ? " text-blue-400 rotate-180"
+              : " text-slate-400 group-hover:text-white "
+          }`}
+        >
+          <FaChevronDown size={11} />
         </span>
       </div>
+
       <div
         className={`grid transition-all duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">
-          <div className="px-6 pb-4 pt-2 text-slate-300 text-sm sm:text-base border-t border-slate-800/60 wrap-break-word">
+          <div className="px-6 pb-5 pt-2 text-slate-300 text-sm sm:text-base font-light leading-relaxed border-t border-white/10 wrap-break-word">
             {answer}
           </div>
         </div>
