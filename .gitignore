@@ -70,5 +70,5 @@ car-rental-key.pem
 # --- Inne ---
 LICENSE
 
-fleet_db.json
+**/fleet_db.json
 
