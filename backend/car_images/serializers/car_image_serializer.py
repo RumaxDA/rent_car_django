@@ -5,10 +5,11 @@ from fleet.models.car import Car
 
 class CarImageSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=True)
+    is_main = serializers.BooleanField(default=False)
 
     class Meta:
         model = CarImage
-        fields = ["id", "image", "is_main", "order"]
+        fields = ["car", "id", "image", "is_main", "order"]
 
 
 class CarSerializer(serializers.ModelSerializer):
