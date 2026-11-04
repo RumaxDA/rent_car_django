@@ -22,15 +22,13 @@ class CarViewSet(ModelViewSet):
     ]
 
     filterset_fields = {
-        "engine_type": ["exact"],  # e.g. ?engine_type=petrol
-        "car_status": ["exact"],  # e.g. ?car_status=available
-        "price": ["lte", "gte"],  # e.g. ?price__lte=500 (mniej niż / równe)
+        "engine_type": ["exact"],
+        "car_status": ["exact"],
+        "price": ["lte", "gte"],
     }
 
-    # Fields for SearchFilter (searchbar, e.g. ?search=BMW)
     search_fields = ["brand", "model"]
 
-    # Fields to sort by (OrderingFilter) (OrderingFilter)
     ordering_fields = ["price", "year"]
 
     def get_serializer_class(self):
