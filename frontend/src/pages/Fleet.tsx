@@ -33,6 +33,9 @@ const Fleet = () => {
   const [sortBy, setSortBy] = useState<string>(sortFromUrl);
   // const [searchQuery, setSearchQuery] = useState<string>(searchFromUrl);
 
+  // Search from URL
+  // const searchFromUrl = searchParams
+
   // Number of items per page (must match Django CustomPagination page_size, e.g., 10)
   const pageSize = 10;
   const totalPages = Math.ceil(totalCount / pageSize);
