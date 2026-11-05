@@ -4,13 +4,22 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Searchbar from "../components/organisms/Searchbar";
 import { useState } from "react";
 import FleetCard from "../components/molecules/FleetCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-  const handleSearch = (value: string) => {
+  const handleSearchChange = (value: string) => {
     setSearch(value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/fleet?search=${encodeURIComponent(search.trim())}`);
+    }
   };
 
   const scroll = (direction: "left" | "right") => {
@@ -54,7 +63,13 @@ const Home = () => {
             </p>
 
             <div className="bg-slate-900/40 backdrop-blur-xl p-3 rounded-2xl border border-white/10 w-full mx-auto shadow-2xl transition-all duration-300 hover:border-blue-500/30">
-              <Searchbar value={search} onChange={handleSearch} />
+              <form onSubmit={handleSearchSubmit}>
+                <Searchbar
+                  value={search}
+                  onChange={handleSearchChange}
+                  placeholder="Search by brand, model..."
+                />
+              </form>
             </div>
           </div>
         </div>
