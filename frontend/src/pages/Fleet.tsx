@@ -18,6 +18,7 @@ const Fleet = () => {
   const engineFromUrl = searchParams.get("engine_type") || "all";
   const maxPriceFromUrl = parseInt(searchParams.get("max_price") || "1000", 10);
   const sortFromUrl = searchParams.get("ordering") || "default";
+  const searchFromUrl = searchParams.get("search") || "";
 
   const [cars, setCars] = useState<any[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -30,9 +31,7 @@ const Fleet = () => {
   const [selectedEngine, setSelectedEngine] = useState<string>(engineFromUrl);
   const [maxPrice, setMaxPrice] = useState<number>(maxPriceFromUrl);
   const [sortBy, setSortBy] = useState<string>(sortFromUrl);
-
-  // Search from URL
-  // const searchFromUrl = searchParams
+  // const [searchQuery, setSearchQuery] = useState<string>(searchFromUrl);
 
   // Number of items per page (must match Django CustomPagination page_size, e.g., 10)
   const pageSize = 10;
@@ -44,6 +43,7 @@ const Fleet = () => {
     setSelectedStatus(searchParams.get("car_status") || "all");
     setSelectedEngine(searchParams.get("engine_type") || "all");
     setMaxPrice(parseInt(searchParams.get("max_price") || "1000", 10));
+    // setSearchQuery(searchParams.get("search") || "");
 
     // Map backend ordering back to frontend sort state if needed
     const orderingParam = searchParams.get("ordering");
@@ -132,6 +132,7 @@ const Fleet = () => {
           engine_type: selectedEngine,
           car_status: selectedStatus,
           max_price: maxPrice,
+          search: searchFromUrl,
         });
 
         setCars(data.results || data);
@@ -144,7 +145,14 @@ const Fleet = () => {
     };
 
     fetchCars();
-  }, [currentPage, selectedEngine, selectedStatus, maxPrice, sortBy]);
+  }, [
+    currentPage,
+    selectedEngine,
+    selectedStatus,
+    maxPrice,
+    sortBy,
+    searchFromUrl,
+  ]);
 
   if (error) {
     return (
