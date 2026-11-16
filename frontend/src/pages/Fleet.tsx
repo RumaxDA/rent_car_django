@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { get_cars } from "../services/car_service";
 import FleetCard from "../components/molecules/FleetCard";
-import { FleetFilters } from "../components/organisms/FleetFilters"; // <-- Import wydzielonego komponentu
+import { FleetFilters } from "../components/organisms/FleetFilters";
 import {
   FaSortAmountDown,
   FaChevronLeft,
