@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { get_cars } from "../services/car_service";
 import FleetCard from "../components/molecules/FleetCard";
-import { FleetFilters } from "../components/organisms/FleetFilters"; // <-- Import wydzielonego komponentu
+import { FleetFilters } from "../components/organisms/FleetFilters";
 import {
   FaSortAmountDown,
   FaChevronLeft,
@@ -32,6 +32,9 @@ const Fleet = () => {
   const [maxPrice, setMaxPrice] = useState<number>(maxPriceFromUrl);
   const [sortBy, setSortBy] = useState<string>(sortFromUrl);
   // const [searchQuery, setSearchQuery] = useState<string>(searchFromUrl);
+
+  // Search from URL
+  // const searchFromUrl = searchParams
 
   // Number of items per page (must match Django CustomPagination page_size, e.g., 10)
   const pageSize = 10;
@@ -136,7 +139,7 @@ const Fleet = () => {
         });
 
         setCars(data.results || data);
-        setTotalCount(data.count || (data.results ? data.results.length : 0));
+        setTotalCount(data.count ?? (Array.isArray(data) ? data.length : 0));
       } catch (err: any) {
         setError(err.message || "Failed to load fleet.");
       } finally {

@@ -2,6 +2,7 @@ import Button from "../atoms/Button";
 import Input from "../atoms/Input";
 import { useState } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import { login } from "../../services/auth";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -20,8 +21,20 @@ const LoginForm = () => {
     setRememberMe(e.target.checked);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const data = await login({ email, password });
+      localStorage.setItem("access_token", data.access);
+      localStorage.setItem("refresh_token", data.refresh);
+    } catch (err: any) {}
+  };
+
   return (
-    <div className="flex flex-col w-full sm:max-w-md mx-auto p-4 bg-transparent text-white gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col w-full sm:max-w-md mx-auto p-4 bg-transparent text-white gap-4"
+    >
       <div className="flex flex-col gap-4">
         <Input
           type="email"
@@ -89,7 +102,7 @@ const LoginForm = () => {
           <FaFacebookF className="text-blue-500" />
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -1,3 +1,4 @@
+import { apiClient } from "./api";
 export interface CarFilters {
   page?: number;
   search?: string;
@@ -5,6 +6,13 @@ export interface CarFilters {
   engine_type?: string;
   car_status?: string;
   max_price?: number;
+}
+
+export interface PaginatedResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
 }
 
 export const get_cars = async (filters: CarFilters = {}) => {
@@ -27,25 +35,7 @@ export const get_cars = async (filters: CarFilters = {}) => {
     params.append("price__lte", filters.max_price.toString());
   }
 
-  try {
-    const response = await fetch(
-      `http://localhost:8000/api/cars/?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      },
-    );
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}`);
-    }
+  const endpoint = "cars/?${params.toString()}";
 
-    const data = await response.json();
-    return data;
-  } catch (error: any) {
-    console.error("Error", error);
-    throw error;
-  }
+  return apiClient<PaginatedResponse<any>>(endpoint, "GET");
 };
