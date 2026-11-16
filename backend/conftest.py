@@ -28,7 +28,7 @@ def sample_car(db):
 @pytest.fixture
 def sample_user(db):
     return User.objects.create(
-        username="Dawid",
+        email="Dawid@example.com",
         password="Ex@mple123",
     )
 
