@@ -139,7 +139,7 @@ const Fleet = () => {
         });
 
         setCars(data.results || data);
-        setTotalCount(data.count || (data.results ? data.results.length : 0));
+        setTotalCount(data.count ?? (Array.isArray(data) ? data.length : 0));
       } catch (err: any) {
         setError(err.message || "Failed to load fleet.");
       } finally {
